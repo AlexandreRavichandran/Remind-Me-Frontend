@@ -7,17 +7,147 @@
             </div>
         </div>
     </div>
-    <!-- <div class="mt-5 content d-flex justify-content-center">
+    <div id="searchLoadingSpinner" class="mt-5 content d-flex justify-content-center">
         <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
         </div>
-    </div> -->
+    </div>
     <div class="container">
-        <div id="searchResults" class="mt-5 content">
-            <!-- TEMPLATE BOOK -->
-            <div class="row">
-            </div>
+        <div id="searchResults" class="row d-flex justify-content-center mt-5 content">
+
         </div>
     </div>
 </main>
 
+<template id="albumTemplate">
+    <div style="background-color: #DDDDDD;"" class=" col-3 mt-2 me-1 pb-2 pt-0 d-flex flex-column align-items-center">
+        <div style="width:10em">
+            <p id="albumCategory" class="text-white text-center bg-primary p-1"></p>
+            <img id="albumCover" class="block" width="100%"
+                src="https://is4-ssl.mzstatic.com/image/thumb/Music118/v4/a2/8e/66/a28e66ce-4d0c-305e-ec24-7e579ec1235e/source/100x100bb.jpg"
+                alt="">
+        </div>
+        <div class="ms-auto me-auto">
+            <p id="albumTitle" class="h4 text-center"></p>
+            <p id="albumArtist" class="h5 text-center"></p>
+            <p id="albumReleasedAt" class="text-center"></p>
+        </div>
+        <div class="d-flex flex-column align-items-center mt-3" style="width:27em">
+            <a href="#" class="mb-2 d-block text-white btn btn-primary rounded mr-2"><i
+                    class="me-2 text-white h5 bi bi-search"></i>Détails</a>
+            <a href="#" class="d-block text-white btn btn-danger rounded"><i
+                    class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+        </div>
+    </div>
+</template>
+
+<template id="movieTemplate">
+    <div class="col-12 bookElement p-2 mb-3">
+        <div class="row">
+            <div class="col-3 mb-3 ">
+                <img id="movieCover" width="100%"
+                    src="https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=4&edge=curl&source=gbs_api"
+                    alt="">
+            </div>
+            <div class="col-9">
+                <div class="d-flex justify-content-end">
+                    <p id="movieApiCode" class="h5"></p>
+                </div>
+                <h2 id="movieTitle" class="text-center"></h2>
+                <p id="movieReleasedAt"></p>
+                <div class="synopsis">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quo ab dolore
+                        cum officia sunt quasi. Porro veniam eum tenetur explicabo aliquid laborum
+                        reiciendis accusamus! Id soluta nisi dolores placeat praesentium fugiat magnam
+                        veniam enim deleniti voluptas assumenda pariatur, tenetur quae. Nemo itaque sint
+                        possimus dolore aliquam placeat harum praesentium.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="d-flex justify-content-around mt-3" style="width:27em">
+                <a href="#" class="d-block text-white btn btn-primary rounded mr-2"><i
+                        class="me-2 text-white h5 bi bi-search"></i>Détails</a>
+                <a href="#" class="d-block text-white btn btn-danger rounded"><i
+                        class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="songTemplate">
+    <div class="col-4 mt-2 me-1 py-2 bg-warning">
+        <div class="d-flex" style="width:27em">
+            <img width="100%"
+                src="https://is4-ssl.mzstatic.com/image/thumb/Music118/v4/a2/8e/66/a28e66ce-4d0c-305e-ec24-7e579ec1235e/source/100x100bb.jpg"
+                alt="">
+
+            <div class="ms-2 me-2">
+                <p class="h4">Temps mort <span class="h5">Booba</span></p>
+                <h6>2002</h6>
+                <audio controls>
+                    <source
+                        src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/37/89/fd/3789fdcf-1315-5721-c3a2-11008c6d3afa/mzaf_11992122297791728984.plus.aac.p.m4a"
+                        type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around mt-3" style="width:27em">
+            <a href="#" class="d-block text-white btn btn-primary rounded mr-2"><i
+                    class="me-2 text-white h5 bi bi-search"></i>Détails</a>
+            <a href="#" class="d-block text-white btn btn-danger rounded"><i
+                    class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+        </div>
+    </div>
+</template>
+
+<template id="artistTemplate">
+    <div style="background-color: #DDDDDD;"" class=" col-3 mt-2 me-1 pb-2 pt-0 d-flex flex-column align-items-center">
+        <div style="width:10em">
+            <p class="text-white text-center bg-primary p-1">Hip-hop/Rap</p>
+            <p class="h4 text-center">Booba</p>
+        </div>
+        <div class="d-flex flex-column align-items-center mt-3" style="width:27em">
+            <a href="#" class="mb-2 d-block text-white btn btn-primary rounded mr-2"><i
+                    class="me-2 text-white h5 bi bi-search"></i>Détails</a>
+            <a href="#" class="d-block text-white btn btn-danger rounded"><i
+                    class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+        </div>
+    </div>
+</template>
+
+<template id="bookTemplate">
+    <div class="col-12 bookElement p-2 mb-3">
+        <div class="row">
+            <div class="col-3 mb-3 ">
+                <img width="100%"
+                    src="https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=4&edge=curl&source=gbs_api"
+                    alt="">
+            </div>
+            <div class="col-9">
+                <div class="d-flex justify-content-end">
+                    <p id="bookApiCode" class="h5"></p>
+                </div>
+                <h2 id="bookTitle" class="text-center"></h2>
+                <p id="bookAuthor"></p>
+                <p id="bookReleasedAt"></p>
+                <div class="synopsis">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quo ab dolore
+                        cum officia sunt quasi. Porro veniam eum tenetur explicabo aliquid laborum
+                        reiciendis accusamus! Id soluta nisi dolores placeat praesentium fugiat magnam
+                        veniam enim deleniti voluptas assumenda pariatur, tenetur quae. Nemo itaque sint
+                        possimus dolore aliquam placeat harum praesentium.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="d-flex justify-content-around mt-3" style="width:27em">
+                <a href="#" class="d-block text-white btn btn-primary rounded mr-2"><i
+                        class="me-2 text-white h5 bi bi-search"></i>Détails</a>
+                <a href="#" class="d-block text-white btn btn-danger rounded"><i
+                        class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+            </div>
+        </div>
+    </div>
+</template>
 {% include footer.html %}

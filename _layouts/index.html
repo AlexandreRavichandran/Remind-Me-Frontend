@@ -13,9 +13,8 @@
                         <label for="themeSelection" class="form-label h4 mt-2">Je cherche</label>
                     </div>
                     <div class="col-9">
-                        <select id="themeSelection" class="form-select form-select-lg mb-3"
+                        <select name="type" id="themeSelection" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
-                            <!-- Type Selection -->
                             <option selected>Je cherche...</option>
                             <option value="movie">un film</option>
                             <option value="music">un artiste musical/album/une musique</option>
@@ -23,7 +22,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center d-none">
                     <div class="col-12">
                         <select id="musicTypeSelection" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
@@ -37,7 +36,7 @@
                 </div>
             </div>
             <div class="container d-flex flex-column align-items-center mt-4">
-                <input class="form-control form-control-lg searchBar" name="toto" type="text" placeholder="Votre recherche">
+                <input class="form-control form-control-lg searchBar" name="q" type="text" placeholder="Votre recherche">
                 <button class="btn btn-secondary btn-lg rounded p-2 mt-5"><i
                         class="me-2 text-white h5 bi bi-search"></i>Rechercher</button>
             </div>
