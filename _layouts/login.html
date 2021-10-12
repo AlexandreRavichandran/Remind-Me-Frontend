@@ -1,0 +1,29 @@
+{% include header.html %}
+<main class="loginForm mb-5">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+            <img class="" src="https://placehold.it/640x250" alt="">
+        </div>
+        <div class="row d-flex justify-content-center mt-3">
+            <div class="col-3">
+                <form action="#" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Votre adresse e-mail</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                    <div class="mt-2 d-flex justify-content-center">
+                        <button type="submit" class="p-2 btn btn-secondary rounded">Connexion</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p class="text-center mt-3">Vous n'avez pas de compte ? <a class="text-black"
+                href="/register">S'inscrire</a></p>
+    </div>
+</main>
+
+{% include footer.html %}
