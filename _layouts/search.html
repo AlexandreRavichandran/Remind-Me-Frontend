@@ -19,134 +19,94 @@
 </main>
 
 <template id="albumTemplate">
-    <div style="background-color: #DDDDDD;"" class=" col-3 mt-2 me-1 pb-2 pt-0 d-flex flex-column align-items-center">
-        <div style="width:10em">
-            <p id="albumCategory" class="text-white text-center bg-primary p-1"></p>
-            <img id="albumCover" class="block" width="100%"
-                src="https://is4-ssl.mzstatic.com/image/thumb/Music118/v4/a2/8e/66/a28e66ce-4d0c-305e-ec24-7e579ec1235e/source/100x100bb.jpg"
-                alt="">
+    <div class="col-3 albumElement mt-4 me-1 py-2 text-center">
+        <div>
+            <img class="ms-auto me-auto" width="250px" id="albumPicture" src="#" alt="">
         </div>
-        <div class="ms-auto me-auto">
-            <p id="albumTitle" class="h4 text-center"></p>
-            <p id="albumArtist" class="h5 text-center"></p>
-            <p id="albumReleasedAt" class="text-center"></p>
-        </div>
-        <div class="d-flex flex-column align-items-center mt-3" style="width:27em">
-            <a href="#" class="mb-2 d-block text-white btn btn-primary rounded mr-2"><i
-                    class="me-2 text-white h5 bi bi-search"></i>Détails</a>
-            <a href="#" class="d-block text-white btn btn-danger rounded"><i
-                    class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+        <p class="mt-2" id="albumTitle"></p>
+        <a href="#" class="d-block mb-2 text-white" id="albumArtist"></a>
+        <div class="d-flex justify-content-around align-items-center">
+            <a id="albumDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>
 </template>
 
 <template id="movieTemplate">
-    <div class="col-12 bookElement p-2 mb-3">
-        <div class="row">
-            <div class="col-3 mb-3 ">
-                <img id="movieCover" width="100%"
-                    src="https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=4&edge=curl&source=gbs_api"
-                    alt="">
-            </div>
-            <div class="col-9">
-                <div class="d-flex justify-content-end">
-                    <p id="movieApiCode" class="h5"></p>
-                </div>
-                <h2 id="movieTitle" class="text-center"></h2>
-                <p id="movieReleasedAt"></p>
-                <div class="synopsis">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quo ab dolore
-                        cum officia sunt quasi. Porro veniam eum tenetur explicabo aliquid laborum
-                        reiciendis accusamus! Id soluta nisi dolores placeat praesentium fugiat magnam
-                        veniam enim deleniti voluptas assumenda pariatur, tenetur quae. Nemo itaque sint
-                        possimus dolore aliquam placeat harum praesentium.</p>
-                </div>
-            </div>
+    <div class="col-4 movieElement p-2 mb-3">
+        <div>
+            <img class="d-block ms-auto me-auto" id="moviePicture" width="250px" src="#" alt="">
         </div>
-        <div class="row d-flex justify-content-center">
-            <div class="d-flex justify-content-around mt-3" style="width:27em">
-                <a href="#" class="d-block text-white btn btn-primary rounded mr-2"><i
-                        class="me-2 text-white h5 bi bi-search"></i>Détails</a>
-                <a href="#" class="d-block text-white btn btn-danger rounded"><i
-                        class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
-            </div>
+        <div class="d-flex flex-column mt-2 align-items-center">
+            <p id="movieTitle"></p>
+            <p id="movieReleasedAt"></p>
         </div>
+        <div class="d-flex justify-content-around align-items-center">
+            <a id="movieDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-plus-circle"></i></a>
+        </div>
+
     </div>
 </template>
 
 <template id="songTemplate">
-    <div class="col-4 mt-2 me-1 py-2 bg-warning">
-        <div class="d-flex" style="width:27em">
-            <img width="100%"
-                src="https://is4-ssl.mzstatic.com/image/thumb/Music118/v4/a2/8e/66/a28e66ce-4d0c-305e-ec24-7e579ec1235e/source/100x100bb.jpg"
-                alt="">
-
-            <div class="ms-2 me-2">
-                <p class="h4">Temps mort <span class="h5">Booba</span></p>
-                <h6>2002</h6>
-                <audio controls>
-                    <source
-                        src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/37/89/fd/3789fdcf-1315-5721-c3a2-11008c6d3afa/mzaf_11992122297791728984.plus.aac.p.m4a"
-                        type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
+    <div class="d-flex col-12 songElement mt-2 me-1 py-2">
+        <div class="col-1">
+            <img id="songPicture" width="120px" src="#" alt="">
         </div>
-        <div class="d-flex justify-content-around mt-3" style="width:27em">
-            <a href="#" class="d-block text-white btn btn-primary rounded mr-2"><i
-                    class="me-2 text-white h5 bi bi-search"></i>Détails</a>
-            <a href="#" class="d-block text-white btn btn-danger rounded"><i
-                    class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+        <div class="col-4 align-middle d-flex flex-column justify-content-center align-items-center">
+            <a href="#" class="d-block text-white" id="songTitle"></a>
+            <a href="#" class="mt-2 d-block text-white" id="songArtist"></a>
+        </div>
+        <div class="col-4 d-flex justify-content-center align-items-center">
+            <audio controls>
+                <source id="songPreview" src="#" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="col-3 d-flex justify-content-center align-items-center">
+            <a id="songDetailsLink" href="#" class="d-flex me-3 justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>
 </template>
 
 <template id="artistTemplate">
-    <div style="background-color: #DDDDDD;"" class=" col-3 mt-2 me-1 pb-2 pt-0 d-flex flex-column align-items-center">
-        <div style="width:10em">
-            <p class="text-white text-center bg-primary p-1">Hip-hop/Rap</p>
-            <p class="h4 text-center">Booba</p>
+    <div class="col-3 mt-2 artistElement me-1 py-2">
+        <img class="d-block ms-auto me-auto" width="250px" id="artistPicture" src="#" alt="">
+        <div class="mt-2 d-flex justify-content-center">
+            <p id="artistName"></p>
         </div>
-        <div class="d-flex flex-column align-items-center mt-3" style="width:27em">
-            <a href="#" class="mb-2 d-block text-white btn btn-primary rounded mr-2"><i
-                    class="me-2 text-white h5 bi bi-search"></i>Détails</a>
-            <a href="#" class="d-block text-white btn btn-danger rounded"><i
-                    class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
+        <div class="d-flex justify-content-around align-items-center">
+            <a id="artistDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>
 </template>
 
 <template id="bookTemplate">
-    <div class="col-12 bookElement p-2 mb-3">
-        <div class="row">
-            <div class="col-3 mb-3 ">
-                <img width="100%"
-                    src="https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=4&edge=curl&source=gbs_api"
-                    alt="">
-            </div>
-            <div class="col-9">
-                <div class="d-flex justify-content-end">
-                    <p id="bookApiCode" class="h5"></p>
-                </div>
-                <h2 id="bookTitle" class="text-center"></h2>
-                <p id="bookAuthor"></p>
-                <p id="bookReleasedAt"></p>
-                <div class="synopsis">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quo ab dolore
-                        cum officia sunt quasi. Porro veniam eum tenetur explicabo aliquid laborum
-                        reiciendis accusamus! Id soluta nisi dolores placeat praesentium fugiat magnam
-                        veniam enim deleniti voluptas assumenda pariatur, tenetur quae. Nemo itaque sint
-                        possimus dolore aliquam placeat harum praesentium.</p>
-                </div>
-            </div>
+    <div class="col-4 bookElement p-2 mb-3">
+        <div>
+            <img class="d-block ms-auto me-auto" id="bookPicture" width="250px" src="#" alt="">
         </div>
-        <div class="row d-flex justify-content-center">
-            <div class="d-flex justify-content-around mt-3" style="width:27em">
-                <a href="#" class="d-block text-white btn btn-primary rounded mr-2"><i
-                        class="me-2 text-white h5 bi bi-search"></i>Détails</a>
-                <a href="#" class="d-block text-white btn btn-danger rounded"><i
-                        class="me-2 text-white h5 bi bi-plus-circle"></i>Ajouter à ma liste</a>
-            </div>
+        <div class="mt-3 d-flex flex-column align-items-center">
+            <hp id="bookTitle" class="text-center"></hp>
+            <p id="bookAuthor"></p>
+            <p id="bookReleasedAt"></p>
+        </div>
+        <div class="d-flex justify-content-around align-items-center">
+            <a id="bookDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>
 </template>

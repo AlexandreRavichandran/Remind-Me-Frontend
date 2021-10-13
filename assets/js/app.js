@@ -1,5 +1,5 @@
 const app = {
-
+    apiBaseUrl: 'https://127.0.0.1:8000/api/',
     currentPage: window.location.href,
 
     init: function () {
@@ -12,6 +12,7 @@ const app = {
     addListeners: function () {
         const typeSelect = document.querySelector('#themeSelection');
         typeSelect.addEventListener('change', app.changeBackgroundColor);
+        typeSelect.addEventListener('change', app.showMusicType);
     },
 
 
@@ -40,6 +41,20 @@ const app = {
 
         bodyElement.animate({ backgroundColor: [previousColor, newColor] }, 500).onfinish = function () {
             bodyElement.style.backgroundColor = newColor;
+        }
+    },
+    
+    showMusicType: function (e) {
+        const value = e.currentTarget.value;
+        const musicTypeSelection = document.querySelector('#musicType');
+        if (value === "music") {
+            musicTypeSelection.classList.remove('d-none');
+            musicTypeSelection.querySelector('select').setAttribute('name', 'subType');
+        } else {
+            musicTypeSelection.querySelector('select').removeAttribute('name');
+            if (!musicTypeSelection.classList.contains('d-none')) {
+                musicTypeSelection.classList.add('d-none');
+            }
         }
     }
 }
