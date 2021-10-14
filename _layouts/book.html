@@ -1,2 +1,47 @@
 {% include header.html %}
+<div class="container mt-4">
+    <div id="searchLoadingSpinner" class="mt-5 content d-flex justify-content-center">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        </div>
+    </div>
+</div>
+<template id="singleBook">
+    <div class="row">
+        <div class="col-4">
+            <img id="bookPicture" class="d-block" width="100%"
+                src=""
+                alt="">
+        </div>
+        <div class="col-7">
+            <div class="row d-flex justify-content-between">
+                <div class="col-4">
+                    <h2 id="bookTitle"></h2>
+                    <h3>Par <span id="bookAuthor"></span></h3>
+                </div>
+                <div class="col-3">
+                    <p>Date de sortie: <span id="bookReleaseDate"></span></p>
+                    <p>Code API: <span id="bookApiCode"></span></p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <p class="text-center">Categories: </p>
+                    <p id="bookCategories"></p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <p class="text-center">Synopsis: </p>
+                <div id="bookSynopsis" class="col text-center">
+                    <p></p>
+                </div>
+            </div>
+            <div class="row mt-5 d-flex justify-content-center">
+                <div class="col-5">
+                    <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                            class="m-0 text-white me-2 h5 bi bi-plus-circle"></i>Ajouter à ma liste de livres</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 {% include footer.html %}

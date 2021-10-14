@@ -1,5 +1,5 @@
 ---
-layout: songs
+layout: song
 platform: mac
 permalink: /songs
 ---
