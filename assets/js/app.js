@@ -15,7 +15,6 @@ const app = {
         typeSelect.addEventListener('change', app.showMusicType);
     },
 
-
     changeBackgroundColor: function (e) {
         const currentSelectValue = e.currentTarget.value;
         console.log(currentSelectValue);

@@ -6,15 +6,15 @@
     </div>
 </div>
 
-<template id="singleSong">
-    <div id="songArtistPicture" class="container-fluid mt-2" class="100%"
-        style="height:800px;background-position:center;background-repeat: no-repeat">
+<template id="singleSongTemplate">
+    <div id="singleSongArtistPicture" class="container-fluid mt-2" class="100%"
+        style="height:500px;background-position:center;background-repeat: no-repeat">
 
     </div>
     <div class="container mt-5">
         <div class="row">
             <div class="col-3">
-                <img id="songPicture" width="100%"
+                <img id="singleSongPicture" width="100%"
                     src=""
                     alt="">
             </div>
@@ -22,20 +22,20 @@
 
                 <div class="row d-flex justify-content-between">
                     <div class="col-4">
-                        <p>Titre: <span id="songTitle"></span></p>
-                        <p>Album: <span id="songAlbum"></span> <a id="songAlbumDetails" href=""
+                        <p>Titre: <span id="singleSongTitle"></span></p>
+                        <p>Album: <span id="singleSongAlbum"></span> <a id="singleSongAlbumDetails" href=""
                                 class="ms-2 text-white">Détails sur
                                 l'album</a></p>
                     </div>
                     <div class="col-3">
-                        <p>Sortie: <span id="songReleasedAt"></span></p>
-                        <p>Code api: <span id="songApiCode"></span></p>
+                        <p>Sortie: <span id="singleSongReleasedAt"></span></p>
+                        <p>Code api: <span id="singleSongApiCode"></span></p>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <p class="text-center">Aperçu: </p>
                     <audio class="mt-3 100%" controls>
-                        <source id="songPreview"
+                        <source id="singleSongPreview"
                             src=""
                             type="audio/mpeg">
                         Your browser does not support the audio element.
