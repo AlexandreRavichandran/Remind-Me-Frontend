@@ -8,6 +8,7 @@ const music = {
         const params = new URLSearchParams(queryString);
         if (params.get('type') === 'music') {
             music.displayMusicCollection(params.get('subType'), params.get('q'));
+
         }
         if (window.location.href.indexOf('albums/details') > -1) {
 
@@ -25,12 +26,13 @@ const music = {
     },
 
     displayMusicCollection: function (subType, query) {
+        console.log('ok');
         const config = {
             method: 'GET',
-            mode: 'cors',
-            cache: 'default',
+            mode: 'cors',gi
         };
         fetch(app.apiBaseUrl + 'musics/' + subType + 's?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
+            console.log(responseJson);
             if (subType === 'album') {
                 music.createAlbumCollection(responseJson);
             } else if (subType === 'artist') {
@@ -140,7 +142,7 @@ const music = {
         songElement.querySelector('#singleSongReleasedAt').innerHTML = element.releasedAt;
         songElement.querySelector('#singleSongApiCode').innerHTML = element.apiCode;
         songElement.querySelector('#singleSongPreview').setAttribute('src', element.previewUrl);
-        songElement.querySelector('#singleSongAlbumDetails').setAttribute('href','/albums/details?code='+element.albumApiCode)
+        songElement.querySelector('#singleSongAlbumDetails').setAttribute('href', '/albums/details?code=' + element.albumApiCode)
 
         music.content.appendChild(songElement);
         music.loadingSpinner.classList.add('d-none');

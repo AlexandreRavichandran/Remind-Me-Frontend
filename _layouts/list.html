@@ -3,26 +3,103 @@
     <div class="container mt-5">
         <div class="row d-flex justify-content-center">
             <div class="col-3 d-flex justify-content-center">
-                <a href="#" class="h3 btn btn-secondary rounded p-2"><i class="bi h3 bi-film me-2"></i> Mes
+                <a id="movieList" href="#" class="h3 btn btn-secondary rounded p-2"><i class="bi h3 bi-film me-2"></i>
+                    Mes
                     films</a>
             </div>
             <div class="col-3 d-flex justify-content-center">
-                <a href="#" class="h3 btn btn-secondary rounded p-2"><i class="bi h3 bi-music-note me-2"></i> Mes
+                <a id="musicList" href="#" class="h3 btn btn-secondary rounded p-2"><i
+                        class="bi h3 bi-music-note me-2"></i> Mes
                     musiques</a>
             </div>
             <div class="col-3 d-flex justify-content-center">
-                <a href="#" class="h3 btn btn-secondary rounded p-2"><i class="bi h3 bi-book me-2"></i> Mes
+                <a id="bookList" href="#" class="h3 btn btn-secondary rounded p-2"><i class="bi h3 bi-book me-2"></i>
+                    Mes
                     livres</a>
             </div>
         </div>
     </div>
-    <!-- <div class="mt-5 content d-flex justify-content-center">
+    <div id="loadingSpinner" class="mt-5 content d-flex justify-content-center">
         <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
         </div>
-    </div> -->
-    <div class="container">
-        <div class="row">
-        </div>
+    </div>
+    <div class="container mt-5" id="content">
     </div>
 </main>
 {% include footer.html %}
+<template id="musicListTemplate">
+    <div class="row my-5">
+        <div class="col-3 d-flex flex-column align-items-center justify-content-center">
+            <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
+            <p id="movieListOrder" style="width:60px;border-radius: 50%;"
+                class="h2 text-center bg-primary text-white p-2 m-0 my-5">1
+            </p>
+            <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
+        </div>
+        <div class="col-7 d-flex flex-column align-items-center">
+            <img id="moviePicture" src="https://placehold.it/300x300" alt="">
+            <h4 id="movieTitle" class="mt-2"></h4>
+            <h6>Sorti en <span id="movieReleasedAt"></span></h6>
+        </div>
+        <div class="col-2 d-flex flex-column align-items-center justify-content-center">
+
+            <a id="movieDetailsLink" href="#"
+                class="mb-5 d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a id="movieListRemove" href="#"
+                class="mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-dash-circle"></i></a>
+        </div>
+    </div>
+</template>
+<template id="bookListTemplate">
+    <div class="row my-5">
+        <div class="col-3 d-flex flex-column align-items-center justify-content-center">
+            <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
+            <p id="bookListOrder" style="width:60px;border-radius: 50%;"
+                class="h2 text-center bg-primary text-white p-2 m-0 my-5">1
+            </p>
+            <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
+        </div>
+        <div class="col-7 d-flex flex-column align-items-center">
+            <img id="bookListPicture" src="https://placehold.it/300x300" alt="">
+            <h4 id="bookListTitle" class="mt-2"></h4>
+            <h6>Sorti en <span id="bookReleasedAt"></span></h6>
+        </div>
+        <div class="col-2 d-flex flex-column align-items-center justify-content-center">
+
+            <a id="bookListDetailsLink" href="#"
+                class="mb-5 d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a id="bookListRemove" href="#"
+                class="mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-dash-circle"></i></a>
+        </div>
+    </div>
+</template>
+<template id="musicListTemplate">
+    <div class="row my-5">
+        <div class="col-3 d-flex flex-column align-items-center justify-content-center">
+            <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
+            <p id="musicListOrder" style="width:60px;border-radius: 50%;"
+                class="h2 text-center bg-primary text-white p-2 m-0 my-5">1
+            </p>
+            <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
+        </div>
+        <div class="col-7 d-flex flex-column align-items-center">
+            <img id="musicListPicture" src="https://placehold.it/300x300" alt="">
+            <h4 id="musicListTitle" class="mt-2"></h4>
+            <h5 id="musicListType" class="mt-2"></h5>
+            <h6>Sorti en <span id="musicListReleasedAt"></span></h6>
+        </div>
+        <div class="col-2 d-flex flex-column align-items-center justify-content-center">
+
+            <a id="musicListDetailsLink" href="#"
+                class="mb-5 d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+                    class="m-0 text-white h5 bi bi-search"></i></a>
+            <a id="musicListRemove" href="#"
+                class="mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    class="m-0 text-white h5 bi bi-dash-circle"></i></a>
+        </div>
+    </div>
+</template>

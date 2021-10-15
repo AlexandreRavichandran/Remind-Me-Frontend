@@ -18,9 +18,11 @@ const movie = {
     },
 
     displayMovieCollection: function (query) {
-
+        const httpHeader = new Headers();
+        httpHeader.append('Access-Control-Allow-Origin', "*");
         const config = {
             method: 'GET',
+            headers: httpHeader,
             mode: 'cors',
             cache: 'default',
         };
@@ -41,7 +43,7 @@ const movie = {
             providedMovie.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.apiCode)
             content.appendChild(providedMovie);
         }
-        loadingSpinner.classList.add("d-none");
+        movie.loadingSpinner.classList.add("d-none");
     },
 
     displayMovieItem: function (apiCode) {
@@ -55,7 +57,7 @@ const movie = {
             movie.createMovieItem(responseJson);
         })
     },
-    
+
     createMovieItem: function (responseJson) {
         const singleMovieTemplate = document.querySelector('#singleMovieTemplate');
         const newMovieItem = singleMovieTemplate.content.cloneNode(true);

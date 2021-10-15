@@ -3,16 +3,21 @@ const app = {
     currentPage: window.location.href,
 
     init: function () {
+        app.handleUserStatus();
         music.init();
         movie.init();
         book.init();
+        user.init();
+        list.init();
         app.addListeners();
     },
 
     addListeners: function () {
         const typeSelect = document.querySelector('#themeSelection');
-        typeSelect.addEventListener('change', app.changeBackgroundColor);
-        typeSelect.addEventListener('change', app.showMusicType);
+        if(typeSelect){
+            typeSelect.addEventListener('change', app.changeBackgroundColor);
+            typeSelect.addEventListener('change', app.showMusicType);
+        }
     },
 
     changeBackgroundColor: function (e) {
@@ -42,7 +47,7 @@ const app = {
             bodyElement.style.backgroundColor = newColor;
         }
     },
-    
+
     showMusicType: function (e) {
         const value = e.currentTarget.value;
         const musicTypeSelection = document.querySelector('#musicType');
@@ -54,6 +59,16 @@ const app = {
             if (!musicTypeSelection.classList.contains('d-none')) {
                 musicTypeSelection.classList.add('d-none');
             }
+        }
+    },
+
+    handleUserStatus: function () {
+        if (!sessionStorage.getItem('JWT')) {
+            document.querySelector('#loginLink').classList.remove('d-none');
+        }else{
+            document.querySelector('#listLink').classList.remove('d-none');
+            document.querySelector('#logoutLink').classList.remove('d-none');
+            document.querySelector('#loginLink').classList.add('d-none');
         }
     }
 }
