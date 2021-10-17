@@ -6,20 +6,20 @@
     </div>
 </div>
 <template id="singleBookTemplate">
-    <div class="row">
+    <div  data-api-code="" class="element bookElement row">
         <div class="col-4">
-            <img id="picture" class="d-block" width="100%"
+            <img data-picture-url="" id="picture" class="d-block" width="100%"
                 src=""
                 alt="">
         </div>
         <div class="col-7">
             <div class="row d-flex justify-content-between">
                 <div class="col-5">
-                    <h2 id="title"></h2>
-                    <h3>Par <span id="author"></span></h3>
+                    <h2 data-title="" id="title"></h2>
+                    <h3>Par <span data-author="" id="author"></span></h3>
                 </div>
                 <div class="col-2">
-                    <p>Date de sortie: <span id="releaseDate"></span></p>
+                    <p>Date de sortie: <span data-released-at="" id="releasedAt"></span></p>
                     <p>Code API: <span id="apiCode"></span></p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="row mt-5 d-flex justify-content-center">
                 <div class="col-5">
-                    <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    <a href="#" class="addBooklist d-flex justify-content-center text-white btn btn-danger rounded"><i
                             class="m-0 text-white me-2 h5 bi bi-plus-circle"></i>Ajouter à ma liste de livres</a>
                 </div>
             </div>

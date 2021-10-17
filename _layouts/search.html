@@ -36,19 +36,19 @@
 </template>
 
 <template id="movieTemplate">
-    <div class="col-4 movieElement p-2 mb-3">
+    <div class="col-4 element movieElement p-2 mb-3" data-api-code="">
         <div>
-            <img class="d-block ms-auto me-auto" id="picture" width="250px" src="#" alt="">
+            <img class="d-block ms-auto me-auto" data-picture-url="" id="picture" width="250px" src="#" alt="">
         </div>
         <div class="d-flex flex-column mt-2 align-items-center">
-            <p id="title"></p>
-            <p id="releasedAt"></p>
+            <p data-title="" id="title"></p>
+            <p data-released-at="" id="releasedAt"></p>
         </div>
         <div class="d-flex justify-content-around align-items-center">
             <a id="detailsLink" href="#"
                 class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#" class="addMovieList d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
 
@@ -56,13 +56,13 @@
 </template>
 
 <template id="songTemplate">
-    <div class="d-flex col-12 songElement mt-2 me-1 py-2">
+    <div class="d-flex col-12 element songElement mt-2 me-1 py-2" data-api-code="" data-type="Song">
         <div class="col-1">
-            <img id="picture" width="120px" src="#" alt="">
+            <img id="picture" data-picture-url="" width="120px" src="#" alt="">
         </div>
         <div class="col-4 align-middle d-flex flex-column justify-content-center align-items-center">
-            <p class="d-block text-white" id="title"></p>
-            <p class="mt-2 d-block text-white" id="artist"></p>
+            <p class="d-block text-white" data-title="" id="title"></p>
+            <p class="mt-2 d-block text-white" data-artist="" id="artist"></p>
         </div>
         <div class="col-4 d-flex justify-content-center align-items-center">
             <audio controls>
@@ -97,20 +97,20 @@
 </template>
 
 <template id="bookTemplate">
-    <div class="col-4 bookElement p-2 mb-3">
+    <div class="col-4 element bookElement p-2 mb-3" data-api-code="">
         <div>
-            <img class="d-block ms-auto me-auto" id="picture" width="250px" src="#" alt="">
+            <img class="d-block ms-auto me-auto" data-picture-url="" id="picture" width="250px" src="#" alt="">
         </div>
         <div class="mt-3 d-flex flex-column align-items-center">
-            <hp id="title" class="text-center"></hp>
-            <p id="author"></p>
-            <p id="releasedAt"></p>
+            <p data-title="" id="title" class="text-center"></p>
+            <p data-author="" id="author"></p>
+            <p data-released-at="" id="releasedAt"></p>
         </div>
         <div class="d-flex justify-content-around align-items-center">
             <a id="detailsLink" href="#"
                 class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#" class="addBooklist d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>

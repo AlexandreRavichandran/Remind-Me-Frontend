@@ -6,19 +6,19 @@
     </div>
 </div>
 <template id="singleMovieTemplate">
-    <div class="row">
+    <div class="element movieElement row" data-api-code="">
         <div class="col-4 d-flex justify-content-center ">
-            <img id="picture" src="" alt="">
+            <img data-picture-url="" id="picture" src="" alt="">
         </div>
         <div class="col-8">
             <div class="row d-flex justify-content-between">
                 <div class="col-5">
-                    <h2 id="title"></h2>
+                    <h2 data-title="" id="title"></h2>
                     <h6>Un film de <span id="realisator"></span></h6>
 
                 </div>
                 <div class="col-3">
-                    <p>Date de sortie: <span id="releasedDate"></span></p>
+                    <p>Date de sortie: <span data-released-at="" id="releasedAt"></span></p>
                     <p>Code API: <span id="apiCode"></span></p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="row mt-5 d-flex justify-content-center">
                 <div class="col-5">
-                    <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                    <a href="#" class="addMovieList d-flex justify-content-center text-white btn btn-danger rounded"><i
                             class="m-0 text-white me-2 h5 bi bi-plus-circle"></i>Ajouter à ma liste de films</a>
                 </div>
             </div>

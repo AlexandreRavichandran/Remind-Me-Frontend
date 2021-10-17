@@ -20,7 +20,10 @@ const book = {
     },
 
     addListeners: function () {
-
+        const addToBookListButtons = document.querySelectorAll('.addBooklist');
+        for (const button of addToBookListButtons) {
+            button.addEventListener('click', book.addtoList);
+        }
 
     },
     displayBookCollection: function (query) {
@@ -41,13 +44,21 @@ const book = {
         for (const bookElement of responseJson["hydra:member"]) {
             const bookTemplate = document.querySelector("#bookTemplate");
             const providedBook = bookTemplate.content.cloneNode(true);
+
+            providedBook.querySelector('.element').dataset.apiCode = bookElement.apiCode;
+            providedBook.querySelector('#title').dataset.title = bookElement.title;
+            providedBook.querySelector('#author').dataset.author = bookElement.author;
+            providedBook.querySelector('#picture').dataset.pictureUrl = bookElement.coverUrl;
+            providedBook.querySelector('#releasedAt').dataset.releasedAt = bookElement.releasedAt;
+
             providedBook.querySelector('#title').innerHTML = bookElement.title;
-            providedBook.querySelector('#releasedAt').innerHTML = bookElement.releasedAt.split('-')[0];
+            providedBook.querySelector('#releasedAt').innerHTML = bookElement.releasedAt;
             providedBook.querySelector('#author').innerHTML = bookElement.author;
             providedBook.querySelector('#picture').setAttribute('src', bookElement.coverUrl)
             providedBook.querySelector('#detailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
             book.content.appendChild(providedBook);
         }
+        book.addListeners();
         book.loadingSpinner.classList.add("d-none");
     },
 
@@ -67,16 +78,61 @@ const book = {
         console.log(responseJson);
         const singleBookTemplate = document.querySelector('#singleBookTemplate');
         const newBookItem = singleBookTemplate.content.cloneNode(true);
+        newBookItem.querySelector('.element').dataset.apiCode = responseJson.apiCode;
+        newBookItem.querySelector('#title').dataset.title = responseJson.title;
+        newBookItem.querySelector('#author').dataset.author = responseJson.author;
+        newBookItem.querySelector('#picture').dataset.pictureUrl = responseJson.coverUrl;
+        newBookItem.querySelector('#releasedAt').dataset.releasedAt = responseJson.releasedAt;
+
         newBookItem.querySelector('#picture').setAttribute('src', responseJson.coverUrl);
         newBookItem.querySelector('#title').innerHTML = responseJson.title;
         newBookItem.querySelector('#author').innerHTML = responseJson.author;
-        newBookItem.querySelector('#releaseDate').innerHTML = responseJson.releasedAt;
+        newBookItem.querySelector('#releasedAt').innerHTML = responseJson.releasedAt;
         newBookItem.querySelector('#apiCode').innerHTML = responseJson.apiCode;
         newBookItem.querySelector('#categories').innerHTML = responseJson.category;
         newBookItem.querySelector('#synopsis').innerHTML = responseJson.synopsis;
 
         book.content.appendChild(newBookItem);
         book.loadingSpinner.classList.add('d-none');
+        book.addListeners();
+    },
+
+    addtoList: function (e) {
+        e.preventDefault();
+        const bookToAdd = e.currentTarget.closest('.element');
+        const title = bookToAdd.querySelector('#title').dataset.title;
+        const author = bookToAdd.querySelector('#author').dataset.author;
+        const releasedAt = bookToAdd.querySelector('#releasedAt').dataset.releasedAt;
+        const apiCode = bookToAdd.dataset.apiCode;
+        const pictureUrl = bookToAdd.querySelector('#picture').dataset.pictureUrl;
+
+        const httpHeaders = new Headers();
+        httpHeaders.append('Content-type', 'application/json');
+        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
+        const book = {
+            'title': title,
+            'releasedAt': releasedAt,
+            'author': author,
+            'apiCode': apiCode,
+            'pictureUrl': pictureUrl
+        }
+        const datas = {
+            'book': book
+        }
+        const config = {
+            method: 'POST',
+            headers: httpHeaders,
+            mode: 'cors',
+            body: JSON.stringify(datas),
+            cache: 'no-cache'
+        };
+
+        fetch(app.apiBaseUrl + 'list/books', config)
+            .then(function (response) {
+                if (response.status === 201) {
+                    console.log(response);
+                }
+            });
     }
 
 }

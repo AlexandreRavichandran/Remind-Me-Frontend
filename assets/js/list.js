@@ -47,6 +47,7 @@ const list = {
                 newMovieList.querySelector('#movieTitle').innerHTML = movie.movie.title;
                 newMovieList.querySelector('#movieReleasedAt').innerHTML = movie.movie.releasedAt;
                 newMovieList.querySelector('#movieListOrder').innerHTML = movie.listOrder;
+                newMovieList.querySelector('#moviePicture').setAttribute('src', movie.movie.pictureUrl);
                 newMovieList.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.movie.apiCode);
                 list.content.appendChild(newMovieList);
             }
@@ -101,6 +102,7 @@ const list = {
                 const newBookList = bookListTemplate.content.cloneNode(true);
                 newBookList.querySelector('#bookListOrder').innerHTML = book.listOrder;
                 newBookList.querySelector('#bookListTitle').innerHTML = book.book.title;
+                newBookList.querySelector('#bookListPicture').setAttribute('src', book.book.pictureUrl);            
                 newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/books/details?code=' + book.book.apiCode)
                 list.content.appendChild(newBookList)
             }

@@ -57,11 +57,12 @@ const music = {
             const providedAlbum = albumTemplate.content.cloneNode(true);
             providedAlbum.querySelector('.albumElement').dataset.apiCode = album.apiCode;
             providedAlbum.querySelector('#picture').dataset.pictureUrl = album.pictureUrl;
+            providedAlbum.querySelector('#title').dataset.title = album.title;
+            providedAlbum.querySelector('#artist').dataset.artist = album.artist;
+
             providedAlbum.querySelector('#picture').setAttribute('src', album.pictureUrl);
             providedAlbum.querySelector('#title').innerHTML = album.title;
-            providedAlbum.querySelector('#title').dataset.title = album.title;
             providedAlbum.querySelector('#artist').innerHTML = album.artist;
-            providedAlbum.querySelector('#artist').dataset.artist = album.artist;
             providedAlbum.querySelector('#artist').setAttribute('href', '/artists/details?code=' + album.artistApiCode);
             providedAlbum.querySelector('#detailsLink').setAttribute('href', '/albums/details?code=' + album.apiCode)
 
@@ -87,6 +88,12 @@ const music = {
         for (const song of element['hydra:member']) {
             const songTemplate = document.querySelector('#songTemplate');
             const providedSong = songTemplate.content.cloneNode(true);
+
+            providedSong.querySelector('#title').dataset.title = song.title;
+            providedSong.querySelector('#artist').dataset.artist = song.artist;
+            providedSong.querySelector('#picture').dataset.pictureUrl = song.pictureUrl;
+            providedSong.querySelector('.element').dataset.apiCode = song.apiCode;
+
             providedSong.querySelector('#title').innerHTML = song.title;
             providedSong.querySelector('#artist').innerHTML = song.artist;
             providedSong.querySelector('#artist').setAttribute('href', '/artist/details?code=' + song.artistApiCode);
@@ -96,6 +103,7 @@ const music = {
             music.content.appendChild(providedSong);
         }
         music.loadingSpinner.classList.add('d-none');
+        music.addListeners();
     },
 
     displayMusicItem: function (type, apiCode) {
@@ -120,6 +128,13 @@ const music = {
     createAlbumItem: function (element) {
         const singleAlbumTemplate = document.querySelector('#singleAlbumTemplate');
         const albumItem = singleAlbumTemplate.content.cloneNode(true);
+
+        albumItem.querySelector('.element').dataset.apiCode = element.apiCode;
+        albumItem.querySelector('#picture').dataset.pictureUrl = element.pictureUrl;
+        albumItem.querySelector('#title').dataset.title = element.title;
+        albumItem.querySelector('#artist').dataset.artist = element.artist;
+        albumItem.querySelector('#releasedAt').dataset.releasedAt = element.releasedAt;
+
         albumItem.querySelector('#picture').setAttribute('src', element.pictureUrl);
         albumItem.querySelector('#title').innerHTML = element.title;
         albumItem.querySelector('#artist').innerHTML = element.artist;
@@ -148,10 +163,17 @@ const music = {
     createSongItem: function (element) {
         const songTemplate = document.querySelector('#singleSongTemplate');
         const songElement = songTemplate.content.cloneNode(true);
-        songElement.querySelector('artistPicture').style.backgroundImage = 'url("' + element.artistPictureUrl + '")';
+        songElement.querySelector('.element').dataset.apiCode = element.apiCode;
+        songElement.querySelector('#picture').dataset.pictureUrl = element.pictureUrl;
+        songElement.querySelector('#title').dataset.title = element.title;
+        songElement.querySelector('#artist').dataset.artist = element.artist;
+        songElement.querySelector('#releasedAt').dataset.releasedAt = element.releasedAt;
+
+        songElement.querySelector('#artistPicture').style.backgroundImage = 'url("' + element.artistPictureUrl + '")';
         songElement.querySelector('#picture').setAttribute('src', element.pictureUrl);
         songElement.querySelector('#title').innerHTML = element.title;
         songElement.querySelector('#album').innerHTML = element.album;
+        songElement.querySelector('#artist').innerHTML = element.artist;
         songElement.querySelector('#releasedAt').innerHTML = element.releasedAt;
         songElement.querySelector('#apiCode').innerHTML = element.apiCode;
         songElement.querySelector('#preview').setAttribute('src', element.previewUrl);
@@ -159,6 +181,7 @@ const music = {
 
         music.content.appendChild(songElement);
         music.loadingSpinner.classList.add('d-none');
+        music.addListeners();
     },
 
 
