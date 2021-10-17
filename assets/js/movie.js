@@ -17,6 +17,11 @@ const movie = {
         }
     },
 
+    addListeners: function () {
+
+        
+    },
+
     displayMovieCollection: function (query) {
         const httpHeader = new Headers();
         httpHeader.append('Access-Control-Allow-Origin', "*");
@@ -24,7 +29,7 @@ const movie = {
             method: 'GET',
             headers: httpHeader,
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
 
         fetch(app.apiBaseUrl + 'movies?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
@@ -37,10 +42,10 @@ const movie = {
         const movieTemplate = document.querySelector("#movieTemplate");
         for (const movie of responseJson["hydra:member"]) {
             const providedMovie = movieTemplate.content.cloneNode(true);
-            providedMovie.querySelector('#movieTitle').innerHTML = movie.title;
-            providedMovie.querySelector('#moviePicture').setAttribute('src', movie.coverUrl);
-            providedMovie.querySelector('#movieReleasedAt').innerHTML = movie.releasedAt;
-            providedMovie.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.apiCode)
+            providedMovie.querySelector('#title').innerHTML = movie.title;
+            providedMovie.querySelector('#picture').setAttribute('src', movie.coverUrl);
+            providedMovie.querySelector('#releasedAt').innerHTML = movie.releasedAt;
+            providedMovie.querySelector('#detailsLink').setAttribute('href', '/movies/details?code=' + movie.apiCode)
             content.appendChild(providedMovie);
         }
         movie.loadingSpinner.classList.add("d-none");
@@ -50,7 +55,7 @@ const movie = {
         const config = {
             method: 'GET',
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
 
         fetch(app.apiBaseUrl + 'movies/' + apiCode, config).then(function (response) { return response.json() }).then(function (responseJson) {
@@ -61,14 +66,14 @@ const movie = {
     createMovieItem: function (responseJson) {
         const singleMovieTemplate = document.querySelector('#singleMovieTemplate');
         const newMovieItem = singleMovieTemplate.content.cloneNode(true);
-        newMovieItem.querySelector("#singleMoviePicture").setAttribute('src', responseJson.coverUrl);
-        newMovieItem.querySelector("#singleMovieTitle").innerHTML = responseJson.title;
-        newMovieItem.querySelector("#singleMovieRealisator").innerHTML = responseJson.realisator;
-        newMovieItem.querySelector("#singleMovieReleasedDate").innerHTML = responseJson.releasedAt;
-        newMovieItem.querySelector("#singleMovieApiCode").innerHTML = responseJson.apiCode;
-        newMovieItem.querySelector("#singleMovieActors").innerHTML = responseJson.actors;
-        newMovieItem.querySelector("#singleMovieCategories").innerHTML = responseJson.category;
-        newMovieItem.querySelector("#singleMovieSynopsis").innerHTML = responseJson.synopsis;
+        newMovieItem.querySelector("#picture").setAttribute('src', responseJson.coverUrl);
+        newMovieItem.querySelector("#title").innerHTML = responseJson.title;
+        newMovieItem.querySelector("#realisator").innerHTML = responseJson.realisator;
+        newMovieItem.querySelector("#releasedDate").innerHTML = responseJson.releasedAt;
+        newMovieItem.querySelector("#apiCode").innerHTML = responseJson.apiCode;
+        newMovieItem.querySelector("#actors").innerHTML = responseJson.actors;
+        newMovieItem.querySelector("#categories").innerHTML = responseJson.category;
+        newMovieItem.querySelector("#synopsis").innerHTML = responseJson.synopsis;
 
         movie.content.appendChild(newMovieItem);
         movie.loadingSpinner.classList.add('d-none');

@@ -7,22 +7,21 @@ const list = {
         if (app.currentPage.includes('/list')) {
             utils.checkIfUserIsConnected();
         }
-
         list.addListeners();
     },
 
     addListeners: function () {
-        movieListButton = document.querySelector('#movieList');
+        const movieListButton = document.querySelector('#movieList');
         if (movieListButton) {
             movieListButton.addEventListener('click', list.getMovieList);
         }
 
-        bookListButton = document.querySelector('#bookList');
+        const bookListButton = document.querySelector('#bookList');
         if (bookListButton) {
             bookListButton.addEventListener('click', list.getBookList);
         }
 
-        musicListButton = document.querySelector('#musicList');
+        const musicListButton = document.querySelector('#musicList');
         if (musicListButton) {
             musicListButton.addEventListener('click', list.getMusicList);
         }
@@ -39,11 +38,11 @@ const list = {
             method: 'GET',
             headers: httpHeaders,
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache'
         };
         fetch(app.apiBaseUrl + 'list/movies', config).then(function (response) { return response.json() }).then(function (jsonResponse) {
             for (const movie of jsonResponse['hydra:member']) {
-                const movieListTemplate = document.querySelector('#musicListTemplate');
+                const movieListTemplate = document.querySelector('#movieListTemplate');
                 const newMovieList = movieListTemplate.content.cloneNode(true);
                 newMovieList.querySelector('#movieTitle').innerHTML = movie.movie.title;
                 newMovieList.querySelector('#movieReleasedAt').innerHTML = movie.movie.releasedAt;
@@ -66,10 +65,20 @@ const list = {
             method: 'GET',
             headers: httpHeaders,
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
         fetch(app.apiBaseUrl + 'list/musics', config).then(function (response) { return response.json() }).then(function (jsonResponse) {
-            console.log(jsonResponse);
+            for (const music of jsonResponse['hydra:member']) {
+                const musicListTemplate = document.querySelector('#musicListTemplate');
+                const newMusicList = musicListTemplate.content.cloneNode(true);
+                newMusicList.querySelector('#musicListTitle').innerHTML = music.music.title;
+                newMusicList.querySelector('#musicListType').innerHTML = music.music.type;
+                newMusicList.querySelector('#musicListReleasedAt').innerHTML = music.music.releasedAt;
+                newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
+                newMusicList.querySelector('#musicListPicture').setAttribute('src', music.music.pictureUrl);
+                list.content.appendChild(newMusicList);
+                list.loadingSpinner.classList.add('d-none');
+            }
         })
     },
 
@@ -84,7 +93,7 @@ const list = {
             method: 'GET',
             headers: httpHeaders,
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
         fetch(app.apiBaseUrl + 'list/books', config).then(function (response) { return response.json() }).then(function (jsonResponse) {
             for (const book of jsonResponse['hydra:member']) {
@@ -98,5 +107,6 @@ const list = {
             list.loadingSpinner.classList.add('d-none');
         })
     },
+
 
 }

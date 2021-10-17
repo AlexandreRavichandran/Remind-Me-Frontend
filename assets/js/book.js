@@ -19,12 +19,16 @@ const book = {
 
     },
 
+    addListeners: function () {
+
+
+    },
     displayBookCollection: function (query) {
 
         const config = {
             method: 'GET',
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
 
         fetch(app.apiBaseUrl + 'books?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
@@ -37,11 +41,11 @@ const book = {
         for (const bookElement of responseJson["hydra:member"]) {
             const bookTemplate = document.querySelector("#bookTemplate");
             const providedBook = bookTemplate.content.cloneNode(true);
-            providedBook.querySelector('#bookTitle').innerHTML = bookElement.title;
-            providedBook.querySelector('#bookReleasedAt').innerHTML = bookElement.releasedAt.split('-')[0];
-            providedBook.querySelector('#bookAuthor').innerHTML = bookElement.author;
-            providedBook.querySelector('#bookPicture').setAttribute('src', bookElement.coverUrl)
-            providedBook.querySelector('#bookDetailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
+            providedBook.querySelector('#title').innerHTML = bookElement.title;
+            providedBook.querySelector('#releasedAt').innerHTML = bookElement.releasedAt.split('-')[0];
+            providedBook.querySelector('#author').innerHTML = bookElement.author;
+            providedBook.querySelector('#picture').setAttribute('src', bookElement.coverUrl)
+            providedBook.querySelector('#detailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
             book.content.appendChild(providedBook);
         }
         book.loadingSpinner.classList.add("d-none");
@@ -51,7 +55,7 @@ const book = {
         const config = {
             method: 'GET',
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
 
         fetch(app.apiBaseUrl + 'books/' + apiCode, config).then(function (response) { return response.json() }).then(function (responseJson) {
@@ -60,15 +64,16 @@ const book = {
     },
 
     createBookItem: function (responseJson) {
+        console.log(responseJson);
         const singleBookTemplate = document.querySelector('#singleBookTemplate');
         const newBookItem = singleBookTemplate.content.cloneNode(true);
-        newBookItem.querySelector('#singleBookPicture').setAttribute('src', responseJson.coverUrl);
-        newBookItem.querySelector('#singleBookTitle').innerHTML = responseJson.title;
-        newBookItem.querySelector('#singleBookAuthor').innerHTML = responseJson.author;
-        newBookItem.querySelector('#singleBookReleaseDate').innerHTML = responseJson.releasedAt;
-        newBookItem.querySelector('#singleBookApiCode').innerHTML = responseJson.apiCode;
-        newBookItem.querySelector('#singleBookCategories').innerHTML = responseJson.category;
-        newBookItem.querySelector('#singleBookSynopsis').innerHTML = responseJson.synopsis;
+        newBookItem.querySelector('#picture').setAttribute('src', responseJson.coverUrl);
+        newBookItem.querySelector('#title').innerHTML = responseJson.title;
+        newBookItem.querySelector('#author').innerHTML = responseJson.author;
+        newBookItem.querySelector('#releaseDate').innerHTML = responseJson.releasedAt;
+        newBookItem.querySelector('#apiCode').innerHTML = responseJson.apiCode;
+        newBookItem.querySelector('#categories').innerHTML = responseJson.category;
+        newBookItem.querySelector('#synopsis').innerHTML = responseJson.synopsis;
 
         book.content.appendChild(newBookItem);
         book.loadingSpinner.classList.add('d-none');

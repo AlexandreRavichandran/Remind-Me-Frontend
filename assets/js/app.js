@@ -22,7 +22,6 @@ const app = {
 
     changeBackgroundColor: function (e) {
         const currentSelectValue = e.currentTarget.value;
-        console.log(currentSelectValue);
 
         const bodyElement = document.querySelector('body');
         const previousColor = bodyElement.style.backgroundColor;

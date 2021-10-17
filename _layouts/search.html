@@ -19,16 +19,17 @@
 </main>
 
 <template id="albumTemplate">
-    <div class="col-3 albumElement mt-4 me-1 py-2 text-center">
+    <div class="element col-3 albumElement mt-4 me-1 py-2 text-center" data-api-code="" data-type="Album">
         <div>
-            <img class="ms-auto me-auto" width="250px" id="albumPicture" src="#" alt="">
+            <img class="ms-auto me-auto" width="250px" id="picture" data-picture-url="" src="#" alt="">
         </div>
-        <p class="mt-2" id="albumTitle"></p>
-        <a href="#" class="d-block mb-2 text-white" id="albumArtist"></a>
+        <p class="mt-2" id="title" data-title=""></p>
+        <a href="#" class="d-block mb-2 text-white" data-artist="" id="artist"></a>
         <div class="d-flex justify-content-around align-items-center">
-            <a id="albumDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+            <a id="detailsLink" href="#"
+                class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#" class="addMusicList d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>
@@ -37,14 +38,15 @@
 <template id="movieTemplate">
     <div class="col-4 movieElement p-2 mb-3">
         <div>
-            <img class="d-block ms-auto me-auto" id="moviePicture" width="250px" src="#" alt="">
+            <img class="d-block ms-auto me-auto" id="picture" width="250px" src="#" alt="">
         </div>
         <div class="d-flex flex-column mt-2 align-items-center">
-            <p id="movieTitle"></p>
-            <p id="movieReleasedAt"></p>
+            <p id="title"></p>
+            <p id="releasedAt"></p>
         </div>
         <div class="d-flex justify-content-around align-items-center">
-            <a id="movieDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+            <a id="detailsLink" href="#"
+                class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
             <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>
@@ -56,22 +58,23 @@
 <template id="songTemplate">
     <div class="d-flex col-12 songElement mt-2 me-1 py-2">
         <div class="col-1">
-            <img id="songPicture" width="120px" src="#" alt="">
+            <img id="picture" width="120px" src="#" alt="">
         </div>
         <div class="col-4 align-middle d-flex flex-column justify-content-center align-items-center">
-            <p class="d-block text-white" id="songTitle"></p>
-            <p class="mt-2 d-block text-white" id="songArtist"></p>
+            <p class="d-block text-white" id="title"></p>
+            <p class="mt-2 d-block text-white" id="artist"></p>
         </div>
         <div class="col-4 d-flex justify-content-center align-items-center">
             <audio controls>
-                <source id="songPreview" src="#" type="audio/mpeg">
+                <source id="preview" src="#" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
         </div>
         <div class="col-3 d-flex justify-content-center align-items-center">
-            <a id="songDetailsLink" href="#" class="d-flex me-3 justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+            <a id="detailsLink" href="#"
+                class="d-flex me-3 justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#" class="addMusicList d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>
         </div>
     </div>
@@ -84,7 +87,8 @@
             <p id="artistName"></p>
         </div>
         <div class="d-flex justify-content-around align-items-center">
-            <a id="artistDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+            <a id="artistDetailsLink" href="#"
+                class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
             <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>
@@ -95,15 +99,16 @@
 <template id="bookTemplate">
     <div class="col-4 bookElement p-2 mb-3">
         <div>
-            <img class="d-block ms-auto me-auto" id="bookPicture" width="250px" src="#" alt="">
+            <img class="d-block ms-auto me-auto" id="picture" width="250px" src="#" alt="">
         </div>
         <div class="mt-3 d-flex flex-column align-items-center">
-            <hp id="bookTitle" class="text-center"></hp>
-            <p id="bookAuthor"></p>
-            <p id="bookReleasedAt"></p>
+            <hp id="title" class="text-center"></hp>
+            <p id="author"></p>
+            <p id="releasedAt"></p>
         </div>
         <div class="d-flex justify-content-around align-items-center">
-            <a id="bookDetailsLink" href="#" class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
+            <a id="detailsLink" href="#"
+                class="d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
             <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-plus-circle"></i></a>

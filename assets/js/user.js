@@ -35,7 +35,7 @@ const user = {
             headers: httpHeaders,
             mode: 'cors',
             body: JSON.stringify(datas),
-            cache: 'default',
+            cache: 'no-cache'
         };
 
         fetch(app.apiBaseUrl + 'login_check', config)

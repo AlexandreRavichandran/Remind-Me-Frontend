@@ -7,14 +7,14 @@
 </div>
 
 <template id="singleSongTemplate">
-    <div id="singleSongArtistPicture" class="container-fluid mt-2" class="100%"
+    <div id="artistPicture" class="container-fluid mt-2" class="100%"
         style="height:500px;background-position:center;background-repeat: no-repeat">
 
     </div>
     <div class="container mt-5">
         <div class="row">
             <div class="col-3">
-                <img id="singleSongPicture" width="100%"
+                <img id="picture" width="100%"
                     src=""
                     alt="">
             </div>
@@ -22,20 +22,20 @@
 
                 <div class="row d-flex justify-content-between">
                     <div class="col-4">
-                        <p>Titre: <span id="singleSongTitle"></span></p>
-                        <p>Album: <span id="singleSongAlbum"></span> <a id="singleSongAlbumDetails" href=""
+                        <p>Titre: <span id="title"></span></p>
+                        <p>Album: <span id="album"></span> <a id="albumDetails" href=""
                                 class="ms-2 text-white">Détails sur
                                 l'album</a></p>
                     </div>
                     <div class="col-3">
-                        <p>Sortie: <span id="singleSongReleasedAt"></span></p>
-                        <p>Code api: <span id="singleSongApiCode"></span></p>
+                        <p>Sortie: <span id="releasedAt"></span></p>
+                        <p>Code api: <span id="apiCode"></span></p>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <p class="text-center">Aperçu: </p>
                     <audio class="mt-3 100%" controls>
-                        <source id="singleSongPreview"
+                        <source id="preview"
                             src=""
                             type="audio/mpeg">
                         Your browser does not support the audio element.
@@ -43,7 +43,7 @@
                 </div>
                 <div class="row mt-5 d-flex justify-content-center">
                     <div class="col-5">
-                        <a href="#" class="d-flex justify-content-center text-white btn btn-danger rounded"><i
+                        <a href="#" class="addMusicList d-flex justify-content-center text-white btn btn-danger rounded"><i
                                 class="m-0 text-white me-2 h5 bi bi-plus-circle"></i>Ajouter à ma liste de musiques</a>
                     </div>
                 </div>

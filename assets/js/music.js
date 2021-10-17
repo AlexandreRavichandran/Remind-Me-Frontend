@@ -25,14 +25,22 @@ const music = {
         }
     },
 
+    addListeners: function () {
+
+        const addMusicListButton = document.querySelectorAll('.addMusicList');
+        if (addMusicListButton) {
+            for (const musicListButton of addMusicListButton) {
+                musicListButton.addEventListener('click', music.addMusicList);
+            }
+        }
+    },
     displayMusicCollection: function (subType, query) {
-        console.log('ok');
         const config = {
             method: 'GET',
-            mode: 'cors',gi
+            mode: 'cors'
         };
         fetch(app.apiBaseUrl + 'musics/' + subType + 's?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
-            console.log(responseJson);
+
             if (subType === 'album') {
                 music.createAlbumCollection(responseJson);
             } else if (subType === 'artist') {
@@ -47,14 +55,19 @@ const music = {
         for (const album of element['hydra:member']) {
             const albumTemplate = document.querySelector('#albumTemplate');
             const providedAlbum = albumTemplate.content.cloneNode(true);
-            providedAlbum.querySelector('#albumPicture').setAttribute('src', album.pictureUrl);
-            providedAlbum.querySelector('#albumTitle').innerHTML = album.title;
-            providedAlbum.querySelector('#albumArtist').innerHTML = album.artist;
-            providedAlbum.querySelector('#albumArtist').setAttribute('href', '/artists/details?code=' + album.artistApiCode);
-            providedAlbum.querySelector('#albumDetailsLink').setAttribute('href', '/albums/details?code=' + album.apiCode)
+            providedAlbum.querySelector('.albumElement').dataset.apiCode = album.apiCode;
+            providedAlbum.querySelector('#picture').dataset.pictureUrl = album.pictureUrl;
+            providedAlbum.querySelector('#picture').setAttribute('src', album.pictureUrl);
+            providedAlbum.querySelector('#title').innerHTML = album.title;
+            providedAlbum.querySelector('#title').dataset.title = album.title;
+            providedAlbum.querySelector('#artist').innerHTML = album.artist;
+            providedAlbum.querySelector('#artist').dataset.artist = album.artist;
+            providedAlbum.querySelector('#artist').setAttribute('href', '/artists/details?code=' + album.artistApiCode);
+            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/albums/details?code=' + album.apiCode)
 
             music.content.appendChild(providedAlbum);
         }
+        music.addListeners();
         music.loadingSpinner.classList.add('d-none');
     },
 
@@ -74,12 +87,12 @@ const music = {
         for (const song of element['hydra:member']) {
             const songTemplate = document.querySelector('#songTemplate');
             const providedSong = songTemplate.content.cloneNode(true);
-            providedSong.querySelector('#songTitle').innerHTML = song.title;
-            providedSong.querySelector('#songArtist').innerHTML = song.artist;
-            providedSong.querySelector('#songArtist').setAttribute('href', '/artist/details?code=' + song.artistApiCode);
-            providedSong.querySelector('#songPicture').setAttribute('src', song.pictureUrl);
-            providedSong.querySelector('#songPreview').setAttribute('src', song.previewUrl);
-            providedSong.querySelector('#songDetailsLink').setAttribute('href', '/songs/details?code=' + song.apiCode)
+            providedSong.querySelector('#title').innerHTML = song.title;
+            providedSong.querySelector('#artist').innerHTML = song.artist;
+            providedSong.querySelector('#artist').setAttribute('href', '/artist/details?code=' + song.artistApiCode);
+            providedSong.querySelector('#picture').setAttribute('src', song.pictureUrl);
+            providedSong.querySelector('#preview').setAttribute('src', song.previewUrl);
+            providedSong.querySelector('#detailsLink').setAttribute('href', '/songs/details?code=' + song.apiCode)
             music.content.appendChild(providedSong);
         }
         music.loadingSpinner.classList.add('d-none');
@@ -90,7 +103,7 @@ const music = {
         const config = {
             method: 'GET',
             mode: 'cors',
-            cache: 'default',
+            cache: 'no-cache',
         };
 
         fetch(app.apiBaseUrl + 'musics/' + type + 's/' + apiCode, config).then(function (response) { return response.json() }).then(function (responseJson) {
@@ -107,14 +120,14 @@ const music = {
     createAlbumItem: function (element) {
         const singleAlbumTemplate = document.querySelector('#singleAlbumTemplate');
         const albumItem = singleAlbumTemplate.content.cloneNode(true);
-        albumItem.querySelector('#singleAlbumPicture').setAttribute('src', element.pictureUrl);
-        albumItem.querySelector('#singleAlbumTitle').innerHTML = element.title;
-        albumItem.querySelector('#singleAlbumArtist').innerHTML = element.artist;
-        albumItem.querySelector('#singleAlbumReleasedAt').innerHTML = element.releasedAt;
-        albumItem.querySelector('#singleAlbumCategory').innerHTML = element.category;
-        albumItem.querySelector('#singleAlbumApiCode').innerHTML = element.apiCode;
+        albumItem.querySelector('#picture').setAttribute('src', element.pictureUrl);
+        albumItem.querySelector('#title').innerHTML = element.title;
+        albumItem.querySelector('#artist').innerHTML = element.artist;
+        albumItem.querySelector('#releasedAt').innerHTML = element.releasedAt;
+        albumItem.querySelector('#category').innerHTML = element.category;
+        albumItem.querySelector('#apiCode').innerHTML = element.apiCode;
 
-        const tracklistTarget = albumItem.querySelector('#singleAlbumTracklist');
+        const tracklistTarget = albumItem.querySelector('#tracklist');
         for (const track of element.tracklist) {
             const trackElement = document.createElement('li');
             const trackLink = document.createElement('a');
@@ -126,25 +139,67 @@ const music = {
         }
         music.content.appendChild(albumItem);
         music.loadingSpinner.classList.add('d-none');
+        music.addListeners();
     },
 
     createArtistItem: function (element) {
-        console.log(element);
     },
 
     createSongItem: function (element) {
         const songTemplate = document.querySelector('#singleSongTemplate');
         const songElement = songTemplate.content.cloneNode(true);
-        songElement.querySelector('#singleSongArtistPicture').style.backgroundImage = 'url("' + element.artistPictureUrl + '")';
-        songElement.querySelector('#singleSongPicture').setAttribute('src', element.pictureUrl);
-        songElement.querySelector('#singleSongTitle').innerHTML = element.title;
-        songElement.querySelector('#singleSongAlbum').innerHTML = element.album;
-        songElement.querySelector('#singleSongReleasedAt').innerHTML = element.releasedAt;
-        songElement.querySelector('#singleSongApiCode').innerHTML = element.apiCode;
-        songElement.querySelector('#singleSongPreview').setAttribute('src', element.previewUrl);
-        songElement.querySelector('#singleSongAlbumDetails').setAttribute('href', '/albums/details?code=' + element.albumApiCode)
+        songElement.querySelector('artistPicture').style.backgroundImage = 'url("' + element.artistPictureUrl + '")';
+        songElement.querySelector('#picture').setAttribute('src', element.pictureUrl);
+        songElement.querySelector('#title').innerHTML = element.title;
+        songElement.querySelector('#album').innerHTML = element.album;
+        songElement.querySelector('#releasedAt').innerHTML = element.releasedAt;
+        songElement.querySelector('#apiCode').innerHTML = element.apiCode;
+        songElement.querySelector('#preview').setAttribute('src', element.previewUrl);
+        songElement.querySelector('#albumDetails').setAttribute('href', '/albums/details?code=' + element.albumApiCode)
 
         music.content.appendChild(songElement);
         music.loadingSpinner.classList.add('d-none');
     },
+
+
+    addMusicList: function (e) {
+        e.preventDefault();
+        const elementToAdd = e.currentTarget.closest('.element');
+        const elementType = elementToAdd.dataset.type;
+        const elementApiCode = elementToAdd.dataset.apiCode;
+        const elementTitle = elementToAdd.querySelector('#title').dataset.title;
+        const elementPicture = elementToAdd.querySelector('#picture').dataset.pictureUrl;
+        let elementArtist = null;
+        if (elementType !== 'Artist') {
+            elementArtist = elementToAdd.querySelector('#artist').dataset.artist;
+        }
+
+        const httpHeaders = new Headers();
+        httpHeaders.append('Content-type', 'application/json');
+        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
+        const music = {
+            'title': elementTitle,
+            'releasedAt': 2002,
+            'type': elementType,
+            'artist': elementArtist,
+            'apiCode': elementApiCode,
+            'pictureUrl': elementPicture
+        }
+        const datas = {
+            'music': music
+        }
+        const config = {
+            method: 'POST',
+            headers: httpHeaders,
+            mode: 'cors',
+            body: JSON.stringify(datas),
+            cache: 'no-cache'
+        };
+
+        fetch(app.apiBaseUrl + 'list/musics', config)
+            .then(function (response) {
+                if (response.status === 201) {
+                }
+            });
+    }
 }
