@@ -17,14 +17,6 @@ const movie = {
         }
     },
 
-    addListeners: function () {
-        const addToMovieListButton = document.querySelectorAll('.addMovieList');
-        for (const button of addToMovieListButton) {
-            button.addEventListener('click', movie.addToList);
-        }
-
-    },
-
     displayMovieCollection: function (query) {
         const httpHeader = new Headers();
         httpHeader.append('Access-Control-Allow-Origin', "*");
@@ -55,7 +47,7 @@ const movie = {
             providedMovie.querySelector('#detailsLink').setAttribute('href', '/movies/details?code=' + movie.apiCode)
             content.appendChild(providedMovie);
         }
-        movie.addListeners();
+        movieList.addListeners();
         movie.loadingSpinner.classList.add("d-none");
     },
 
@@ -90,41 +82,7 @@ const movie = {
 
         movie.content.appendChild(newMovieItem);
         movie.loadingSpinner.classList.add('d-none');
-        movie.addListeners();
+        movieList.addListeners();
     },
-
-    addToList: function (e) {
-        e.preventDefault();
-        const movieToAdd = e.currentTarget.closest('.element');
-        const title = movieToAdd.querySelector('#title').dataset.title;
-        const releasedAt = movieToAdd.querySelector('#releasedAt').dataset.releasedAt;
-        const apiCode = movieToAdd.dataset.apiCode;
-        const pictureUrl = movieToAdd.querySelector('#picture').dataset.pictureUrl;
-
-        const httpHeaders = new Headers();
-        httpHeaders.append('Content-type', 'application/json');
-        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
-        const movie = {
-            'title': title,
-            'releasedAt': releasedAt,
-            'apiCode': apiCode,
-            'pictureUrl': pictureUrl
-        }
-        const datas = {
-            'movie': movie
-        }
-        const config = {
-            method: 'POST',
-            headers: httpHeaders,
-            mode: 'cors',
-            body: JSON.stringify(datas),
-            cache: 'no-cache'
-        };
-
-        fetch(app.apiBaseUrl + 'list/movies', config)
-            .then(function (response) {
-                console.log(response);
-            });
-    }
 
 }

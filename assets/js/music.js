@@ -25,15 +25,6 @@ const music = {
         }
     },
 
-    addListeners: function () {
-
-        const addMusicListButton = document.querySelectorAll('.addMusicList');
-        if (addMusicListButton) {
-            for (const musicListButton of addMusicListButton) {
-                musicListButton.addEventListener('click', music.addMusicList);
-            }
-        }
-    },
     displayMusicCollection: function (subType, query) {
         const config = {
             method: 'GET',
@@ -68,7 +59,7 @@ const music = {
 
             music.content.appendChild(providedAlbum);
         }
-        music.addListeners();
+        musicList.addListeners();
         music.loadingSpinner.classList.add('d-none');
     },
 
@@ -103,7 +94,7 @@ const music = {
             music.content.appendChild(providedSong);
         }
         music.loadingSpinner.classList.add('d-none');
-        music.addListeners();
+        musicList.addListeners();
     },
 
     displayMusicItem: function (type, apiCode) {
@@ -154,7 +145,7 @@ const music = {
         }
         music.content.appendChild(albumItem);
         music.loadingSpinner.classList.add('d-none');
-        music.addListeners();
+        musicList.addListeners();
     },
 
     createArtistItem: function (element) {
@@ -181,48 +172,6 @@ const music = {
 
         music.content.appendChild(songElement);
         music.loadingSpinner.classList.add('d-none');
-        music.addListeners();
+        musicList.addListeners();
     },
-
-
-    addMusicList: function (e) {
-        e.preventDefault();
-        const elementToAdd = e.currentTarget.closest('.element');
-        const elementType = elementToAdd.dataset.type;
-        const elementApiCode = elementToAdd.dataset.apiCode;
-        const elementTitle = elementToAdd.querySelector('#title').dataset.title;
-        const elementPicture = elementToAdd.querySelector('#picture').dataset.pictureUrl;
-        let elementArtist = null;
-        if (elementType !== 'Artist') {
-            elementArtist = elementToAdd.querySelector('#artist').dataset.artist;
-        }
-
-        const httpHeaders = new Headers();
-        httpHeaders.append('Content-type', 'application/json');
-        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
-        const music = {
-            'title': elementTitle,
-            'releasedAt': 2002,
-            'type': elementType,
-            'artist': elementArtist,
-            'apiCode': elementApiCode,
-            'pictureUrl': elementPicture
-        }
-        const datas = {
-            'music': music
-        }
-        const config = {
-            method: 'POST',
-            headers: httpHeaders,
-            mode: 'cors',
-            body: JSON.stringify(datas),
-            cache: 'no-cache'
-        };
-
-        fetch(app.apiBaseUrl + 'list/musics', config)
-            .then(function (response) {
-                if (response.status === 201) {
-                }
-            });
-    }
 }

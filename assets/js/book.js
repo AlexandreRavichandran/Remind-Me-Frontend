@@ -19,13 +19,6 @@ const book = {
 
     },
 
-    addListeners: function () {
-        const addToBookListButtons = document.querySelectorAll('.addBooklist');
-        for (const button of addToBookListButtons) {
-            button.addEventListener('click', book.addtoList);
-        }
-
-    },
     displayBookCollection: function (query) {
 
         const config = {
@@ -58,7 +51,7 @@ const book = {
             providedBook.querySelector('#detailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
             book.content.appendChild(providedBook);
         }
-        book.addListeners();
+        bookList.addListeners();
         book.loadingSpinner.classList.add("d-none");
     },
 
@@ -94,45 +87,7 @@ const book = {
 
         book.content.appendChild(newBookItem);
         book.loadingSpinner.classList.add('d-none');
-        book.addListeners();
+        booklist.addListeners();
     },
-
-    addtoList: function (e) {
-        e.preventDefault();
-        const bookToAdd = e.currentTarget.closest('.element');
-        const title = bookToAdd.querySelector('#title').dataset.title;
-        const author = bookToAdd.querySelector('#author').dataset.author;
-        const releasedAt = bookToAdd.querySelector('#releasedAt').dataset.releasedAt;
-        const apiCode = bookToAdd.dataset.apiCode;
-        const pictureUrl = bookToAdd.querySelector('#picture').dataset.pictureUrl;
-
-        const httpHeaders = new Headers();
-        httpHeaders.append('Content-type', 'application/json');
-        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
-        const book = {
-            'title': title,
-            'releasedAt': releasedAt,
-            'author': author,
-            'apiCode': apiCode,
-            'pictureUrl': pictureUrl
-        }
-        const datas = {
-            'book': book
-        }
-        const config = {
-            method: 'POST',
-            headers: httpHeaders,
-            mode: 'cors',
-            body: JSON.stringify(datas),
-            cache: 'no-cache'
-        };
-
-        fetch(app.apiBaseUrl + 'list/books', config)
-            .then(function (response) {
-                if (response.status === 201) {
-                    console.log(response);
-                }
-            });
-    }
 
 }

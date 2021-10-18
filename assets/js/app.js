@@ -20,8 +20,8 @@ const app = {
         }
     },
 
-    changeBackgroundColor: function (e) {
-        const currentSelectValue = e.currentTarget.value;
+    changeBackgroundColor: function (event) {
+        const currentSelectValue = eveent.currentTarget.value;
 
         const bodyElement = document.querySelector('body');
         const previousColor = bodyElement.style.backgroundColor;
@@ -47,8 +47,8 @@ const app = {
         }
     },
 
-    showMusicType: function (e) {
-        const value = e.currentTarget.value;
+    showMusicType: function (event) {
+        const value = event.currentTarget.value;
         const musicTypeSelection = document.querySelector('#musicType');
         if (value === "music") {
             musicTypeSelection.classList.remove('d-none');

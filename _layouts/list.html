@@ -28,11 +28,11 @@
 </main>
 {% include footer.html %}
 <template id="movieListTemplate">
-    <div class="row my-5">
+    <div class="row my-5 element" data-id="">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center">
             <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
             <p id="movieListOrder" style="width:60px;border-radius: 50%;"
-                class="h2 text-center bg-primary text-white p-2 m-0 my-5">1
+                class="h2 text-center bg-primary text-white p-2 m-0 my-2">1
             </p>
             <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
         </div>
@@ -46,18 +46,18 @@
             <a id="movieDetailsLink" href="#"
                 class="mb-5 d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a id="movieListRemove" href="#"
-                class="mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#"
+                class="removeMovieList mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-dash-circle"></i></a>
         </div>
     </div>
 </template>
 <template id="bookListTemplate">
-    <div class="row my-5">
+    <div class="row my-5 element" data-id="">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center">
             <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
             <p id="bookListOrder" style="width:60px;border-radius: 50%;"
-                class="h2 text-center bg-primary text-white p-2 m-0 my-5">1
+                class="h2 text-center bg-primary text-white p-2 m-0 my-2">1
             </p>
             <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
         </div>
@@ -70,18 +70,18 @@
             <a id="bookListDetailsLink" href="#"
                 class="mb-5 d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a id="bookListRemove" href="#"
-                class="mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#"
+                class="removeBookList mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-dash-circle"></i></a>
         </div>
     </div>
 </template>
 <template id="musicListTemplate">
-    <div class="row my-5">
+    <div class="row my-5 element" data-id="">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center">
             <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
             <p id="musicListOrder" style="width:60px;border-radius: 50%;"
-                class="h2 text-center bg-primary text-white p-2 m-0 my-5">1
+                class="h2 text-center bg-primary text-white p-2 m-0 my-2">1
             </p>
             <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
         </div>
@@ -96,8 +96,8 @@
             <a id="musicListDetailsLink" href="#"
                 class="mb-5 d-flex justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
-            <a id="musicListRemove" href="#"
-                class="mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
+            <a href="#"
+                class="removeMusicList mt-5 d-flex justify-content-center text-white btn btn-danger rounded"><i
                     class="m-0 text-white h5 bi bi-dash-circle"></i></a>
         </div>
     </div>
