@@ -80,7 +80,12 @@ const bookList = {
         fetch(app.apiBaseUrl + 'list/books', config)
             .then(function (response) {
                 if (response.status === 201) {
-                    console.log(response);
+                    utils.displayMessage('success', 'Ce livre a bien été ajouté à votre liste');
+                } else if (response.status === 400) {
+                    utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
                 }
             });
     },

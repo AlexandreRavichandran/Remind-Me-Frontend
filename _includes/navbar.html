@@ -1,4 +1,4 @@
-<header>
+<header class="sticky-top">
     <!-- menu -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
         <div class="container-fluid d-flex flex-column flex-md-row justify-content-md-between">
@@ -6,10 +6,21 @@
             <div class="d-flex flex-column flex-md-row">
                 <a id="loginLink" class="h5 nav-link text-white" href="/login"><i
                         class="me-2 text-white h5 bi bi-person-circle"></i>Connexion</a>
-                <a id="listLink" class="d-none h5 nav-link text-white" href="/list"><i class="me-2 text-white h5 bi bi-card-list"></i>Ma
+                <a id="listLink" class="d-none h5 nav-link text-white" href="/list"><i
+                        class="me-2 text-white h5 bi bi-card-list"></i>Ma
                     liste</a>
-                <a id="logoutLink" class="d-none h5 nav-link text-white" href="#"><i class="me-2 text-white h5 bi bi-person-x-fill"></i>Deconnexion</a>
+                <a id="logoutLink" class="d-none h5 nav-link text-white" href="#"><i
+                        class="me-2 text-white h5 bi bi-person-x-fill"></i>Deconnexion</a>
             </div>
         </div>
     </nav>
+
 </header>
+<template id="message">
+    <div style="opacity:0" class="alert alert-dismissible fade show d-flex justify-content-center" role="alert">
+        <span id="messageSentence" class="h6 d-flex align-self-center text-center me-3 mb-0"></span>
+        <a href="#" class="text-black d-block h4 close mb-0" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+</template>

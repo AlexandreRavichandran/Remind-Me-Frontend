@@ -14,14 +14,14 @@ const app = {
 
     addListeners: function () {
         const typeSelect = document.querySelector('#themeSelection');
-        if(typeSelect){
+        if (typeSelect) {
             typeSelect.addEventListener('change', app.changeBackgroundColor);
             typeSelect.addEventListener('change', app.showMusicType);
         }
     },
 
     changeBackgroundColor: function (event) {
-        const currentSelectValue = eveent.currentTarget.value;
+        const currentSelectValue = event.currentTarget.value;
 
         const bodyElement = document.querySelector('body');
         const previousColor = bodyElement.style.backgroundColor;
@@ -64,7 +64,7 @@ const app = {
     handleUserStatus: function () {
         if (!sessionStorage.getItem('JWT')) {
             document.querySelector('#loginLink').classList.remove('d-none');
-        }else{
+        } else {
             document.querySelector('#listLink').classList.remove('d-none');
             document.querySelector('#logoutLink').classList.remove('d-none');
             document.querySelector('#loginLink').classList.add('d-none');

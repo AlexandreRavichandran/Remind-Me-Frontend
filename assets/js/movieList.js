@@ -42,7 +42,7 @@ const movieList = {
                 newMovieList.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.movie.apiCode);
                 movieList.content.appendChild(newMovieList);
             }
-            
+
             movieList.addListeners();
             movieList.loadingSpinner.classList.add('d-none');
         })
@@ -78,7 +78,15 @@ const movieList = {
 
         fetch(app.apiBaseUrl + 'list/movies', config)
             .then(function (response) {
-                console.log(response);
+                console.log()
+                if (response.status === 201) {
+                    utils.displayMessage('success', 'Ce film a bien été ajouté à votre liste');
+                } else if (response.status === 400) {
+                    utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
             });
     },
 

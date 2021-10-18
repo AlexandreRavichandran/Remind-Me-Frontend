@@ -40,8 +40,11 @@ const user = {
 
         fetch(app.apiBaseUrl + 'login_check', config)
             .then(function (response) {
+                console.log(response.status);
                 if (response.status === 200) {
                     return response.json();
+                } else {
+                    utils.displayMessage('danger', 'Votre email ou votre mot de passe est incorrect');
                 }
             }).then(function (responseJson) {
                 sessionStorage.setItem('JWT', responseJson.token);
