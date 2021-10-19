@@ -27,10 +27,16 @@ const book = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'books?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
-            book.createBookCollection(responseJson);
+        fetch(app.apiBaseUrl + 'books?q=' + query, config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+            })
+            .then(function (responseJson) {
+                book.createBookCollection(responseJson);
 
-        })
+            })
     },
 
     createBookCollection: function (responseJson) {
@@ -62,13 +68,18 @@ const book = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'books/' + apiCode, config).then(function (response) { return response.json() }).then(function (responseJson) {
-            book.createBookItem(responseJson);
-        })
+        fetch(app.apiBaseUrl + 'books/' + apiCode, config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+            })
+            .then(function (responseJson) {
+                book.createBookItem(responseJson);
+            })
     },
 
     createBookItem: function (responseJson) {
-        console.log(responseJson);
         const singleBookTemplate = document.querySelector('#singleBookTemplate');
         const newBookItem = singleBookTemplate.content.cloneNode(true);
         newBookItem.querySelector('.element').dataset.apiCode = responseJson.apiCode;

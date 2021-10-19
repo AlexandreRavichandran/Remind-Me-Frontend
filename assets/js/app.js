@@ -18,6 +18,8 @@ const app = {
             typeSelect.addEventListener('change', app.changeBackgroundColor);
             typeSelect.addEventListener('change', app.showMusicType);
         }
+        const searchForm = document.querySelector('#reseachForm');
+        searchForm.addEventListener('submit', app.checkRequest);
     },
 
     changeBackgroundColor: function (event) {
@@ -52,12 +54,15 @@ const app = {
         const musicTypeSelection = document.querySelector('#musicType');
         if (value === "music") {
             musicTypeSelection.classList.remove('d-none');
-            musicTypeSelection.querySelector('select').setAttribute('name', 'subType');
+            musicTypeSelection.querySelector('select').setAttribute('name', 'subType')
+            musicTypeSelection.querySelector('select').setAttribute('required', '');
         } else {
             musicTypeSelection.querySelector('select').removeAttribute('name');
+            musicTypeSelection.querySelector('select').removeAttribute('required');
             if (!musicTypeSelection.classList.contains('d-none')) {
                 musicTypeSelection.classList.add('d-none');
             }
+
         }
     },
 
@@ -69,6 +74,36 @@ const app = {
             document.querySelector('#logoutLink').classList.remove('d-none');
             document.querySelector('#loginLink').classList.add('d-none');
         }
+    },
+
+    checkRequest: function (event) {
+        event.preventDefault();
+        const possibleTypeValues = ['movie', 'music', 'book'];
+        const possibleMusicTypeValues = ['artist', 'album', 'song'];
+        const form = event.currentTarget;
+        let type = form.querySelector('#themeSelection');
+        let request = form.querySelector('#q');
+        let musicType = form.querySelector('#musicTypeSelection');
+        let error = false;
+        if (type.value === '' || request.value === '' || !possibleTypeValues.includes(type.value)) {
+            error = true;
+        } else if (type.value === 'music' && (musicType.value === '' || !possibleMusicTypeValues.includes(musicType.value))) {
+            error = true;
+        }
+        if (error) {
+            utils.displayMessage('danger', 'Une erreur s\'est produite.')
+            type.value = '';
+            request.value = '';
+            musicType.value = '';
+        } else {
+            let destinationLink = '/search.html?type=' + type.value + '&q=' + request.value;
+            if (type.value === 'music') {
+                destinationLink += '&subType=' + musicType.value;
+            }
+            window.location.replace(destinationLink);
+        }
+
+
     }
 }
 

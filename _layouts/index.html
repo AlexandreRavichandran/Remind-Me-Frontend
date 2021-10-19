@@ -6,17 +6,16 @@
         <h4>Remind me vous permettra de créer une liste de médias afin de ne pas oublier de les consommer ! </h4>
     </div>
     <div class="homepageResearch d-flex flex-column justify-content-center">
-        <form action="search.html" method="get">
+        <form id="reseachForm" action="search.html" method="get">
             <div class="container d-flex flex-column align-items-center">
                 <div class="row d-flex justify-content-center">
                     <div class="col-3">
                         <label for="themeSelection" class="form-label h4 mt-2">Je cherche</label>
                     </div>
                     <div class="col-9">
-                        <select name="type" id="themeSelection" class="form-select form-select-lg mb-3"
+                        <select required name="type" id="themeSelection" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
-                            <option selected value="/">Je cherche...</option>
-                            <option value="movie">un film</option>
+                            <option selected value="movie">un film</option>
                             <option value="music">un artiste musical/album/une musique</option>
                             <option value="book">un livre</option>
                         </select>
@@ -27,16 +26,15 @@
                         <select id="musicTypeSelection" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
                             <!-- Type Selection -->
-                            <option selected value="/">Choisissez un type</option>
                             <option value="artist">un artiste</option>
-                            <option value="album">un album</option>
+                            <option selected value="album">un album</option>
                             <option value="song">une chanson</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="container d-flex flex-column align-items-center mt-4">
-                <input class="form-control form-control-lg searchBar" name="q" type="text" placeholder="Votre recherche">
+                <input required id="q" class="form-control form-control-lg searchBar" name="q" type="text" placeholder="Votre recherche">
                 <button class="btn btn-secondary btn-lg rounded p-2 mt-5"><i
                         class="me-2 text-white h5 bi bi-search"></i>Rechercher</button>
             </div>

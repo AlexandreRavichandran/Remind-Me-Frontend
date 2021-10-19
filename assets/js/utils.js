@@ -30,7 +30,6 @@ const utils = {
 
     hideMessage: function (e) {
         e.preventDefault();
-        console.log('ok');
         const currentMessage = e.currentTarget.closest('.alert');
 
         currentMessage.animate({ opacity: ['1', '0'] }, 500).onfinish = function () {

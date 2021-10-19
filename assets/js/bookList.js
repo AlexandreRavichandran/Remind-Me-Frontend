@@ -16,6 +16,21 @@ const bookList = {
                 bookListButton.addEventListener('click', bookList.removeBookList)
             }
         }
+
+        const upToBookListButton = document.querySelectorAll('.upToBookList');
+        if (upToBookListButton) {
+            for (const button of upToBookListButton) {
+                button.addEventListener('click', bookList.changeBookOrder);
+            }
+        }
+
+        const downToBookListButton = document.querySelectorAll('.downToBookList');
+        if (downToBookListButton) {
+            for (const button of downToBookListButton) {
+                button.addEventListener('click', bookList.changeBookOrder);
+            }
+        }
+
     },
 
     getBookList: function (event) {
@@ -31,20 +46,30 @@ const bookList = {
             mode: 'cors',
             cache: 'no-cache',
         };
-        fetch(app.apiBaseUrl + 'list/books', config).then(function (response) { return response.json() }).then(function (jsonResponse) {
-            for (const book of jsonResponse['hydra:member']) {
-                const bookListTemplate = document.querySelector('#bookListTemplate');
-                const newBookList = bookListTemplate.content.cloneNode(true);
-                newBookList.querySelector('.element').dataset.id = book.id;
-                newBookList.querySelector('#bookListOrder').innerHTML = book.listOrder;
-                newBookList.querySelector('#bookListTitle').innerHTML = book.book.title;
-                newBookList.querySelector('#bookListPicture').setAttribute('src', book.book.pictureUrl);
-                newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/books/details?code=' + book.book.apiCode)
-                bookList.content.appendChild(newBookList)
-            }
-            bookList.loadingSpinner.classList.add('d-none');
-            bookList.addListeners();
-        })
+        fetch(app.apiBaseUrl + 'list/books', config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
+            })
+            .then(function (jsonResponse) {
+                for (const book of jsonResponse['hydra:member']) {
+                    const bookListTemplate = document.querySelector('#bookListTemplate');
+                    const newBookList = bookListTemplate.content.cloneNode(true);
+                    newBookList.querySelector('.element').dataset.id = book.id;
+                    newBookList.querySelector('#bookListAuthor').innerHTML = book.book.author;
+                    newBookList.querySelector('#bookListOrder').innerHTML = book.listOrder;
+                    newBookList.querySelector('#bookListTitle').innerHTML = book.book.title;
+                    newBookList.querySelector('#bookListPicture').setAttribute('src', book.book.pictureUrl);
+                    newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/books/details?code=' + book.book.apiCode)
+                    bookList.content.appendChild(newBookList)
+                }
+                bookList.loadingSpinner.classList.add('d-none');
+                bookList.addListeners();
+            })
     },
 
     addBookList: function (event) {
@@ -91,9 +116,106 @@ const bookList = {
     },
 
     changeBookOrder: function (event) {
+        event.preventDefault();
+        const bookToUpdate = event.currentTarget.closest('.element');
+        if (event.currentTarget.classList.contains('upToBookList')) {
+            console.log('ok');
+            bookList.upToList(bookToUpdate);
+        } else if (event.currentTarget.classList.contains('downToBookList')) {
+            bookList.downToList(bookToUpdate);
+        }
+
 
     },
 
+    upToList: function (bookToUpdate) {
+        const elementPreviousSibling = bookToUpdate.previousElementSibling;
+
+        if (elementPreviousSibling != null) {
+
+
+            const previousElementId = elementPreviousSibling.dataset.id;
+            const currentElementId = bookToUpdate.dataset.id;
+
+            const previousElementOrder = elementPreviousSibling.querySelector('#bookListOrder').innerHTML;
+            const currentElementOrder = bookToUpdate.querySelector('#bookListOrder').innerHTML;
+
+            const previousElementNextOrder = parseInt(previousElementOrder) + 1;
+            const currentElementNextOrder = parseInt(currentElementOrder) - 1;
+            bookList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder);
+        }
+    },
+
+    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder) {
+        let datas = {
+            'listOrder': previousElementOrder
+        }
+
+        console.log(JSON.stringify(datas));
+        const httpHeaders = new Headers();
+        httpHeaders.append('Content-type', 'application/merge-patch+json');
+        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
+
+        let config = {
+            method: 'PATCH',
+            headers: httpHeaders,
+            mode: 'cors',
+            body: JSON.stringify(datas),
+            cache: 'no-cache'
+        };
+
+        fetch(app.apiBaseUrl + 'list/books/' + previousElementId, config)
+
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log('ok1')
+                    return response.json();
+                } else {
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
+                datas = {
+                    'listOrder': currentElementOrder
+                }
+
+                let config = {
+                    method: 'PATCH',
+                    headers: httpHeaders,
+                    mode: 'cors',
+                    body: JSON.stringify(datas),
+                    cache: 'no-cache'
+                };
+
+                fetch(app.apiBaseUrl + 'list/books/' + currentElementId, config)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            console.log('ok2');
+                        }
+                    })
+            })
+
+    },
+
+    downToList: function (bookToUpdate) {
+
+        const elementNextSibling = bookToUpdate.nextElementSibling;
+
+        if (elementNextSibling != null) {
+
+
+            const nextElementId = elementNextSibling.dataset.id;
+            const currentElementId = bookToUpdate.dataset.id;
+
+            const nextElementOrder = elementNextSibling.querySelector('#bookListOrder').innerHTML;
+            const currentElementOrder = bookToUpdate.querySelector('#bookListOrder').innerHTML;
+
+            const nextElementNextOrder = parseInt(nextElementOrder) - 1;
+            const currentElementNextOrder = parseInt(currentElementOrder) + 1;
+            bookList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder);
+        }
+    },
+    
     removeBookList: function (event) {
         event.preventDefault();
         const bookToDelete = event.currentTarget.closest('.element');
@@ -108,7 +230,15 @@ const bookList = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'list/books/' + bookId, config).then(function (response) { console.log(response) })
+        fetch(app.apiBaseUrl + 'list/books/' + bookId, config)
+            .then(function (response) {
+                if (response.status === 204) {
+                    document.querySelector('#bookList').click();
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
+            })
     }
 
 

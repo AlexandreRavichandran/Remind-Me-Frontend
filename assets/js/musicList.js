@@ -17,6 +17,20 @@ const musicList = {
                 musicListButton.addEventListener('click', musicList.removeMusicList)
             }
         }
+
+        const upToMusicListButton = document.querySelectorAll('.upToMusicList');
+        if (upToMusicListButton) {
+            for (const button of upToMusicListButton) {
+                button.addEventListener('click', musicList.changeMusicOrder);
+            }
+        }
+
+        const downToMusicListButton = document.querySelectorAll('.downToMusicList');
+        if (downToMusicListButton) {
+            for (const button of downToMusicListButton) {
+                button.addEventListener('click', musicList.changeMusicOrder);
+            }
+        }
     },
 
     getMusicList: function (event) {
@@ -32,22 +46,45 @@ const musicList = {
             mode: 'cors',
             cache: 'no-cache',
         };
-        fetch(app.apiBaseUrl + 'list/musics', config).then(function (response) { return response.json() }).then(function (jsonResponse) {
-            for (const music of jsonResponse['hydra:member']) {
-                const musicListTemplate = document.querySelector('#musicListTemplate');
-                const newMusicList = musicListTemplate.content.cloneNode(true);
-                newMusicList.querySelector('.element').dataset.id = music.id;
-                newMusicList.querySelector('#musicListTitle').innerHTML = music.music.title;
-                newMusicList.querySelector('#musicListType').innerHTML = music.music.type;
-                newMusicList.querySelector('#musicListOrder').innerHTML = music.listOrder;
-                newMusicList.querySelector('#musicListReleasedAt').innerHTML = music.music.releasedAt;
-                newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
-                newMusicList.querySelector('#musicListPicture').setAttribute('src', music.music.pictureUrl);
-                musicList.content.appendChild(newMusicList);
-                musicList.loadingSpinner.classList.add('d-none');
-                musicList.addListeners();
-            }
-        })
+        fetch(app.apiBaseUrl + 'list/musics', config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
+            })
+            .then(function (jsonResponse) {
+                for (const music of jsonResponse['hydra:member']) {
+                    const musicListTemplate = document.querySelector('#musicListTemplate');
+                    const newMusicList = musicListTemplate.content.cloneNode(true);
+                    newMusicList.querySelector('.element').dataset.id = music.id;
+                    newMusicList.querySelector('#musicListTitle').innerHTML = music.music.title;
+                    newMusicList.querySelector('#musicListOrder').innerHTML = music.listOrder;
+                    newMusicList.querySelector('#musicListReleasedAt').innerHTML = music.music.releasedAt;
+                    newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
+                    newMusicList.querySelector('#musicListPicture').setAttribute('src', music.music.pictureUrl);
+                    let type = null;
+                    switch (music.music.type) {
+                        case 'Song':
+                            type = 'Chanson'
+                            break;
+                        case 'Album':
+                            type = 'Album'
+                            break;
+                        case 'Artist':
+                            type = 'Artiste'
+                            break;
+                    }
+
+                    newMusicList.querySelector('#musicListType').innerHTML = type;
+
+                    musicList.content.appendChild(newMusicList);
+                    musicList.loadingSpinner.classList.add('d-none');
+                    musicList.addListeners();
+                }
+            })
     },
 
     addMusicList: function (event) {
@@ -100,6 +137,72 @@ const musicList = {
 
     changeMusicOrder: function (event) {
 
+        event.preventDefault();
+        const musicToUpdate = event.currentTarget.closest('.element');
+        if (event.currentTarget.classList.contains('upToMusicList')) {
+           musicList.upToList(musicToUpdate);
+        } else if (event.currentTarget.classList.contains('downToMusicList')) {
+           musicList.downToList(musicToUpdate);
+        }
+    },
+
+    upToList: function(){
+
+    },
+
+    downToList: function(){
+
+    },
+
+    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder) {
+        let datas = {
+            'listOrder': previousElementOrder
+        }
+
+        console.log(JSON.stringify(datas));
+        const httpHeaders = new Headers();
+        httpHeaders.append('Content-type', 'application/merge-patch+json');
+        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
+
+        let config = {
+            method: 'PATCH',
+            headers: httpHeaders,
+            mode: 'cors',
+            body: JSON.stringify(datas),
+            cache: 'no-cache'
+        };
+
+        fetch(app.apiBaseUrl + 'list/musics/' + previousElementId, config)
+
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log('ok1')
+                    return response.json();
+                } else {
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
+                datas = {
+                    'listOrder': currentElementOrder
+                }
+
+                let config = {
+                    method: 'PATCH',
+                    headers: httpHeaders,
+                    mode: 'cors',
+                    body: JSON.stringify(datas),
+                    cache: 'no-cache'
+                };
+
+                fetch(app.apiBaseUrl + 'list/musics/' + currentElementId, config)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            console.log('ok2');
+                        }
+                    })
+            })
+
     },
 
     removeMusicList: function (event) {
@@ -116,7 +219,15 @@ const musicList = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'list/musics/' + musicId, config).then(function (response) { console.log(response) })
+        fetch(app.apiBaseUrl + 'list/musics/' + musicId, config)
+            .then(function (response) {
+                if (response.status === 204) {
+                    document.querySelector('#musicList').click();
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
+            })
     }
 
 }

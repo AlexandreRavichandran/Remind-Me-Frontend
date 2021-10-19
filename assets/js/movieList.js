@@ -15,6 +15,20 @@ const movieList = {
                 movieListButton.addEventListener('click', movieList.removeMovieList)
             }
         }
+
+        const upToMovieListButton = document.querySelectorAll('.upToMovieList');
+        if (upToMovieListButton) {
+            for (const button of upToMovieListButton) {
+                button.addEventListener('click', movieList.changeMovieOrder);
+            }
+        }
+
+        const downToMovieListButton = document.querySelectorAll('.downToMovieList');
+        if (downToMovieListButton) {
+            for (const button of downToMovieListButton) {
+                button.addEventListener('click', movieList.changeMovieOrder);
+            }
+        }
     },
 
     getMovieList: function (event) {
@@ -30,22 +44,32 @@ const movieList = {
             mode: 'cors',
             cache: 'no-cache'
         };
-        fetch(app.apiBaseUrl + 'list/movies', config).then(function (response) { return response.json() }).then(function (jsonResponse) {
-            for (const movie of jsonResponse['hydra:member']) {
-                const movieListTemplate = document.querySelector('#movieListTemplate');
-                const newMovieList = movieListTemplate.content.cloneNode(true);
-                newMovieList.querySelector('#movieTitle').innerHTML = movie.movie.title;
-                newMovieList.querySelector('.element').dataset.id = movie.id;
-                newMovieList.querySelector('#movieReleasedAt').innerHTML = movie.movie.releasedAt;
-                newMovieList.querySelector('#movieListOrder').innerHTML = movie.listOrder;
-                newMovieList.querySelector('#moviePicture').setAttribute('src', movie.movie.pictureUrl);
-                newMovieList.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.movie.apiCode);
-                movieList.content.appendChild(newMovieList);
-            }
+        fetch(app.apiBaseUrl + 'list/movies', config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
+            })
+            .then(function (jsonResponse) {
+                console.log(jsonResponse);
+                for (const movie of jsonResponse['hydra:member']) {
+                    const movieListTemplate = document.querySelector('#movieListTemplate');
+                    const newMovieList = movieListTemplate.content.cloneNode(true);
+                    newMovieList.querySelector('#movieTitle').innerHTML = movie.movie.title;
+                    newMovieList.querySelector('.element').dataset.id = movie.id;
+                    newMovieList.querySelector('#movieReleasedAt').innerHTML = movie.movie.releasedAt;
+                    newMovieList.querySelector('#movieListOrder').innerHTML = movie.listOrder;
+                    newMovieList.querySelector('#moviePicture').setAttribute('src', movie.movie.pictureUrl);
+                    newMovieList.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.movie.apiCode);
+                    movieList.content.appendChild(newMovieList);
+                }
 
-            movieList.addListeners();
-            movieList.loadingSpinner.classList.add('d-none');
-        })
+                movieList.addListeners();
+                movieList.loadingSpinner.classList.add('d-none');
+            })
     },
 
     addMovieList: function (event) {
@@ -78,7 +102,6 @@ const movieList = {
 
         fetch(app.apiBaseUrl + 'list/movies', config)
             .then(function (response) {
-                console.log()
                 if (response.status === 201) {
                     utils.displayMessage('success', 'Ce film a bien été ajouté à votre liste');
                 } else if (response.status === 400) {
@@ -91,6 +114,100 @@ const movieList = {
     },
 
     changeMovieOrder: function (event) {
+
+        event.preventDefault();
+        const movieToUpdate = event.currentTarget.closest('.element');
+        if (event.currentTarget.classList.contains('upToMovieList')) {
+            movieList.upToList(movieToUpdate);
+        } else if (event.currentTarget.classList.contains('downToMovieList')) {
+            movieList.downToList(movieToUpdate);
+        }
+    },
+
+    upToList: function (movieToUpdate) {
+        const elementPreviousSibling = movieToUpdate.previousElementSibling;
+
+        if (elementPreviousSibling != null) {
+
+            const previousElementId = elementPreviousSibling.dataset.id;
+            const currentElementId = movieToUpdate.dataset.id;
+
+            const previousElementOrder = elementPreviousSibling.querySelector('#movieListOrder').innerHTML;
+            const currentElementOrder = movieToUpdate.querySelector('#movieListOrder').innerHTML;
+
+            const previousElementNextOrder = parseInt(previousElementOrder) + 1;
+            const currentElementNextOrder = parseInt(currentElementOrder) - 1;
+            movieList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder);
+        }
+    },
+
+    downToList: function (movieToUpdate) {
+
+        const elementNextSibling = movieToUpdate.nextElementSibling;
+
+        if (elementNextSibling != null) {
+
+
+            const nextElementId = elementNextSibling.dataset.id;
+            const currentElementId = movieToUpdate.dataset.id;
+
+            const nextElementOrder = elementNextSibling.querySelector('#movieListOrder').innerHTML;
+            const currentElementOrder = movieToUpdate.querySelector('#movieListOrder').innerHTML;
+
+            const nextElementNextOrder = parseInt(nextElementOrder) - 1;
+            const currentElementNextOrder = parseInt(currentElementOrder) + 1;
+            movieList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder);
+        }
+    },
+
+    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder) {
+        let datas = {
+            'listOrder': previousElementOrder
+        }
+
+        console.log(JSON.stringify(datas));
+        const httpHeaders = new Headers();
+        httpHeaders.append('Content-type', 'application/merge-patch+json');
+        httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
+
+        let config = {
+            method: 'PATCH',
+            headers: httpHeaders,
+            mode: 'cors',
+            body: JSON.stringify(datas),
+            cache: 'no-cache'
+        };
+
+        fetch(app.apiBaseUrl + 'list/movies/' + previousElementId, config)
+
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log('ok1')
+                    return response.json();
+                } else {
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
+                datas = {
+                    'listOrder': currentElementOrder
+                }
+
+                let config = {
+                    method: 'PATCH',
+                    headers: httpHeaders,
+                    mode: 'cors',
+                    body: JSON.stringify(datas),
+                    cache: 'no-cache'
+                };
+
+                fetch(app.apiBaseUrl + 'list/movies/' + currentElementId, config)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            console.log('ok2');
+                        }
+                    })
+            })
 
     },
 
@@ -108,7 +225,15 @@ const movieList = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'list/movies/' + movieId, config).then(function (response) { console.log(response) })
+        fetch(app.apiBaseUrl + 'list/movies/' + movieId, config)
+            .then(function (response) {
+                if (response.status === 204) {
+                    document.querySelector('#movieList').click();
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('JWT');
+                    window.location.replace('/login');
+                }
+            })
     }
 
 }

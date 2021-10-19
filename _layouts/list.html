@@ -28,18 +28,18 @@
 </main>
 {% include footer.html %}
 <template id="movieListTemplate">
-    <div class="row my-5 element" data-id="">
+    <div class="row my-5 movieElement element" data-id="">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center">
-            <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
+            <a class="upToMovieList" href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
             <p id="movieListOrder" style="width:60px;border-radius: 50%;"
                 class="h2 text-center bg-primary text-white p-2 m-0 my-2">1
             </p>
-            <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
+            <a class="downToMovieList" href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
         </div>
         <div class="col-7 d-flex flex-column align-items-center">
-            <img id="moviePicture" src="https://placehold.it/300x300" alt="">
-            <h4 id="movieTitle" class="mt-2"></h4>
-            <h6>Sorti en <span id="movieReleasedAt"></span></h6>
+            <img id="moviePicture" src="https://placehold.it/300x300" alt="" width="25%">
+            <p id="movieTitle" class="mt-2"></p>
+            <p>Sorti en <span id="movieReleasedAt"></span></p>
         </div>
         <div class="col-2 d-flex flex-column align-items-center justify-content-center">
 
@@ -53,17 +53,18 @@
     </div>
 </template>
 <template id="bookListTemplate">
-    <div class="row my-5 element" data-id="">
+    <div class="row my-5 bookElement element" data-id="">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center">
-            <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
+            <a class="upToBookList" href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
             <p id="bookListOrder" style="width:60px;border-radius: 50%;"
                 class="h2 text-center bg-primary text-white p-2 m-0 my-2">1
             </p>
-            <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
+            <a class="downToBookList" href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
         </div>
         <div class="col-7 d-flex flex-column align-items-center">
-            <img id="bookListPicture" width="50%" src="https://placehold.it/300x300" alt="">
-            <h4 id="bookListTitle" class="mt-2"></h4>
+            <img id="bookListPicture" width="25%" src="https://placehold.it/300x300" alt="">
+            <p id="bookListTitle" class="mt-2"></p>
+            <p id="bookListAuthor"></p>
         </div>
         <div class="col-2 d-flex flex-column align-items-center justify-content-center">
 
@@ -77,19 +78,19 @@
     </div>
 </template>
 <template id="musicListTemplate">
-    <div class="row my-5 element" data-id="">
+    <div class="row my-5 musicElement element" data-id="">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center">
-            <a href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
+            <a class="upToMusicList" href="#"><i class="d-block text-white bi h1 bi-arrow-up-square-fill"></i></a>
             <p id="musicListOrder" style="width:60px;border-radius: 50%;"
                 class="h2 text-center bg-primary text-white p-2 m-0 my-2">1
             </p>
-            <a href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
+            <a class="downToMusicList" href="#"><i class="d-block text-white bi h1 bi-arrow-down-square-fill"></i></a>
         </div>
         <div class="col-7 d-flex flex-column align-items-center">
-            <img id="musicListPicture" src="" alt="" width="50%">
-            <h4 id="musicListTitle" class="mt-2"></h4>
-            <h5 id="musicListType" class="mt-2"></h5>
-            <h6>Sorti en <span id="musicListReleasedAt"></span></h6>
+            <img id="musicListPicture" src="" alt="" width="25%">
+            <p id="musicListTitle" class="mt-2"></p>
+            <p id="musicListType" class="mt-2"></p>
+            <p>Sorti en <span id="musicListReleasedAt"></span></p>
         </div>
         <div class="col-2 d-flex flex-column align-items-center justify-content-center">
 
