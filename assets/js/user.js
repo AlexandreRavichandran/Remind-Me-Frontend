@@ -40,6 +40,7 @@ const user = {
 
         fetch(app.apiBaseUrl + 'login_check', config)
             .then(function (response) {
+                console.log(response);
                 if (response.status === 200) {
                     return response.json();
                 } else {

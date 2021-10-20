@@ -142,11 +142,11 @@ const bookList = {
 
             const previousElementNextOrder = parseInt(previousElementOrder) + 1;
             const currentElementNextOrder = parseInt(currentElementOrder) - 1;
-            bookList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder);
+            bookList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder, 'top');
         }
     },
 
-    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder) {
+    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder, order) {
         let datas = {
             'listOrder': previousElementOrder
         }
@@ -190,7 +190,11 @@ const bookList = {
                 fetch(app.apiBaseUrl + 'list/books/' + currentElementId, config)
                     .then(function (response) {
                         if (response.status === 200) {
-                            console.log('ok2');
+
+                            const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
+                            const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
+                            console.log(order);
+                            bookList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })
             })
@@ -212,10 +216,23 @@ const bookList = {
 
             const nextElementNextOrder = parseInt(nextElementOrder) - 1;
             const currentElementNextOrder = parseInt(currentElementOrder) + 1;
-            bookList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder);
+            bookList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder, 'bottom');
         }
     },
-    
+
+    displayNewOrder: function (order, currentElement, nextElement) {
+
+        bookList.content.removeChild(currentElement);
+        if (order === 'bottom') {
+            bookList.content.insertBefore(currentElement, nextElement.nextElementSibling);
+            currentElement.querySelector('#bookListOrder').innerHTML++;
+            nextElement.querySelector('#bookListOrder').innerHTML--;
+        } else if (order === 'top') {
+            bookList.content.insertBefore(currentElement, nextElement);
+            nextElement.querySelector('#bookListOrder').innerHTML++;
+            currentElement.querySelector('#bookListOrder').innerHTML--;
+        }
+    },
     removeBookList: function (event) {
         event.preventDefault();
         const bookToDelete = event.currentTarget.closest('.element');

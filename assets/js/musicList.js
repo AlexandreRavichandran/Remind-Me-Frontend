@@ -136,25 +136,52 @@ const musicList = {
     },
 
     changeMusicOrder: function (event) {
-
         event.preventDefault();
         const musicToUpdate = event.currentTarget.closest('.element');
         if (event.currentTarget.classList.contains('upToMusicList')) {
-           musicList.upToList(musicToUpdate);
+            musicList.upToList(musicToUpdate);
         } else if (event.currentTarget.classList.contains('downToMusicList')) {
-           musicList.downToList(musicToUpdate);
+            musicList.downToList(musicToUpdate);
         }
     },
 
-    upToList: function(){
+    upToList: function (musicToUpdate) {
+        const elementPreviousSibling = musicToUpdate.previousElementSibling;
 
+        if (elementPreviousSibling != null) {
+
+            const previousElementId = elementPreviousSibling.dataset.id;
+            const currentElementId = musicToUpdate.dataset.id;
+
+            const previousElementOrder = elementPreviousSibling.querySelector('#musicListOrder').innerHTML;
+            const currentElementOrder = musicToUpdate.querySelector('#musicListOrder').innerHTML;
+
+            const previousElementNextOrder = parseInt(previousElementOrder) + 1;
+            const currentElementNextOrder = parseInt(currentElementOrder) - 1;
+            musicList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder, 'top');
+        }
     },
 
-    downToList: function(){
+    downToList: function (musicToUpdate) {
+        const elementNextSibling = musicToUpdate.nextElementSibling;
 
+        if (elementNextSibling != null) {
+
+
+            const nextElementId = elementNextSibling.dataset.id;
+            const currentElementId = musicToUpdate.dataset.id;
+
+            const nextElementOrder = elementNextSibling.querySelector('#musicListOrder').innerHTML;
+            const currentElementOrder = musicToUpdate.querySelector('#musicListOrder').innerHTML;
+
+            const nextElementNextOrder = parseInt(nextElementOrder) - 1;
+            const currentElementNextOrder = parseInt(currentElementOrder) + 1;
+            musicList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder, 'bottom');
+        }
     },
 
-    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder) {
+    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder, order) {
+
         let datas = {
             'listOrder': previousElementOrder
         }
@@ -171,7 +198,7 @@ const musicList = {
             body: JSON.stringify(datas),
             cache: 'no-cache'
         };
-
+        console.log(app.apiBaseUrl + 'list/musics/' + previousElementId);
         fetch(app.apiBaseUrl + 'list/musics/' + previousElementId, config)
 
             .then(function (response) {
@@ -198,13 +225,28 @@ const musicList = {
                 fetch(app.apiBaseUrl + 'list/musics/' + currentElementId, config)
                     .then(function (response) {
                         if (response.status === 200) {
-                            console.log('ok2');
+                            const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
+                            const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
+                            console.log(order);
+                            musicList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })
             })
 
     },
 
+    displayNewOrder: function (order, currentElement, nextElement) {
+        musicList.content.removeChild(currentElement);
+        if (order === 'bottom') {
+            musicList.content.insertBefore(currentElement, nextElement.nextElementSibling);
+            currentElement.querySelector('#musicListOrder').innerHTML++;
+            nextElement.querySelector('#musicListOrder').innerHTML--;
+        } else if (order === 'top') {
+            musicList.content.insertBefore(currentElement, nextElement);
+            nextElement.querySelector('#musicListOrder').innerHTML++;
+            currentElement.querySelector('#musicListOrder').innerHTML--;
+        }
+    },
     removeMusicList: function (event) {
         event.preventDefault();
         const musicToDelete = event.currentTarget.closest('.element');

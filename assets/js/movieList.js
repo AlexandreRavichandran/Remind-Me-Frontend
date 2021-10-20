@@ -137,7 +137,7 @@ const movieList = {
 
             const previousElementNextOrder = parseInt(previousElementOrder) + 1;
             const currentElementNextOrder = parseInt(currentElementOrder) - 1;
-            movieList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder);
+            movieList.executeOrderRequest(previousElementId, previousElementNextOrder, currentElementId, currentElementNextOrder, 'top');
         }
     },
 
@@ -156,11 +156,11 @@ const movieList = {
 
             const nextElementNextOrder = parseInt(nextElementOrder) - 1;
             const currentElementNextOrder = parseInt(currentElementOrder) + 1;
-            movieList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder);
+            movieList.executeOrderRequest(nextElementId, nextElementNextOrder, currentElementId, currentElementNextOrder, 'bottom');
         }
     },
 
-    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder) {
+    executeOrderRequest: function (previousElementId, previousElementOrder, currentElementId, currentElementOrder, order) {
         let datas = {
             'listOrder': previousElementOrder
         }
@@ -204,11 +204,29 @@ const movieList = {
                 fetch(app.apiBaseUrl + 'list/movies/' + currentElementId, config)
                     .then(function (response) {
                         if (response.status === 200) {
-                            console.log('ok2');
+
+                            const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
+                            const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
+                            console.log(order);
+                            movieList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })
             })
 
+    },
+    
+    displayNewOrder: function(order, currentElement, nextElement){
+
+        movieList.content.removeChild(currentElement);
+        if (order === 'bottom') {
+            movieList.content.insertBefore(currentElement, nextElement.nextElementSibling);
+            currentElement.querySelector('#movieListOrder').innerHTML++;
+            nextElement.querySelector('#movieListOrder').innerHTML--;
+        } else if (order === 'top') {
+            movieList.content.insertBefore(currentElement, nextElement);
+            nextElement.querySelector('#movieListOrder').innerHTML++;
+            currentElement.querySelector('#movieListOrder').innerHTML--;
+        }
     },
 
     removeMovieList: function (event) {
