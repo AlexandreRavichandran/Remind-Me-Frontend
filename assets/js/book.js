@@ -31,11 +31,21 @@ const book = {
             .then(function (response) {
                 if (response.status === 200) {
                     return response.json();
+                }else{
+                    const error = {
+                        'code': 404
+                    };
+                    throw error;
                 }
             })
             .then(function (responseJson) {
                 book.createBookCollection(responseJson);
 
+            })
+
+            .catch(function (error) {
+                book.content.innerHTML = '<p class="text-center">Cette recherche n\'a donné aucun résultat. </p>';
+                book.loadingSpinner.classList.add("d-none");
             })
     },
 
@@ -72,10 +82,18 @@ const book = {
             .then(function (response) {
                 if (response.status === 200) {
                     return response.json();
+                }else{
+                    const error = {
+                        'code': 404
+                    };
+                    throw error;
                 }
             })
             .then(function (responseJson) {
                 book.createBookItem(responseJson);
+            })
+            .catch(function(error){
+                book.content.innerHTML = '<p class="text-center">Une erreur s\'est produite.</p>'
             })
     },
 

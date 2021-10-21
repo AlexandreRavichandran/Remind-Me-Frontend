@@ -10,6 +10,9 @@ const app = {
         user.init();
         list.init();
         app.addListeners();
+        if (app.currentPage.includes('search')) {
+            app.fillResearchTitle();
+        }
     },
 
     addListeners: function () {
@@ -19,7 +22,9 @@ const app = {
             typeSelect.addEventListener('change', app.showMusicType);
         }
         const searchForm = document.querySelector('#reseachForm');
-        searchForm.addEventListener('submit', app.checkRequest);
+        if (searchForm) {
+            searchForm.addEventListener('submit', app.checkRequest);
+        }
     },
 
     changeBackgroundColor: function (event) {
@@ -104,6 +109,30 @@ const app = {
         }
 
 
+    },
+    fillResearchTitle: function () {
+        const queryString = window.location.search;
+        const params = new URLSearchParams(queryString);
+        const type = params.get('type');
+        let typeTranslate = null;
+
+        switch (type) {
+            case 'music':
+                typeTranslate = 'musique';
+                break;
+            case 'movie':
+                typeTranslate = 'film';
+                break;
+            case 'book':
+                typeTranslate = 'livre';
+                break;
+
+        }
+
+        const q = params.get('q');
+
+        document.querySelector('#searchedType').innerHTML = typeTranslate;
+        document.querySelector('#searchedQ').innerHTML = '"' + q + '"';
     }
 }
 

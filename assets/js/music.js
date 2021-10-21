@@ -30,16 +30,31 @@ const music = {
             method: 'GET',
             mode: 'cors'
         };
-        fetch(app.apiBaseUrl + 'musics/' + subType + 's?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
+        fetch(app.apiBaseUrl + 'musics/' + subType + 's?q=' + query, config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    const error = {
+                        'code': 404
+                    };
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
 
-            if (subType === 'album') {
-                music.createAlbumCollection(responseJson);
-            } else if (subType === 'artist') {
-                music.createArtistCollection(responseJson);
-            } else if (subType === 'song') {
-                music.createSongCollection(responseJson);
-            }
-        })
+                if (subType === 'album') {
+                    music.createAlbumCollection(responseJson);
+                } else if (subType === 'artist') {
+                    music.createArtistCollection(responseJson);
+                } else if (subType === 'song') {
+                    music.createSongCollection(responseJson);
+                }
+            })
+            .catch(function (error) {
+                music.content.innerHTML = '<p class="text-center">Cette recherche n\'a donné aucun résultat. </p>';
+                music.loadingSpinner.classList.add("d-none");
+            })
     },
 
     createAlbumCollection: function (element) {
@@ -105,15 +120,30 @@ const music = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'musics/' + type + 's/' + apiCode, config).then(function (response) { return response.json() }).then(function (responseJson) {
-            if (type === 'album') {
-                music.createAlbumItem(responseJson)
-            } else if (type === 'artist') {
-                music.createArtistItem(responseJson)
-            } else if (type === 'song') {
-                music.createSongItem(responseJson)
-            }
-        })
+        fetch(app.apiBaseUrl + 'musics/' + type + 's/' + apiCode, config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    const error = {
+                        'code': 404
+                    };
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
+                if (type === 'album') {
+                    music.createAlbumItem(responseJson)
+                } else if (type === 'artist') {
+                    music.createArtistItem(responseJson)
+                } else if (type === 'song') {
+                    music.createSongItem(responseJson)
+                }
+            })
+            .catch(function (error) {
+                music.content.innerHTML = '<p class="text-center">Une erreur s\'est produite</p>';
+                music.loadingSpinner.classList.add("d-none");
+            })
     },
 
     createAlbumItem: function (element) {

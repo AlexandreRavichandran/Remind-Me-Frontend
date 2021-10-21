@@ -27,10 +27,25 @@ const movie = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'movies?q=' + query, config).then(function (response) { return response.json() }).then(function (responseJson) {
-            movie.createMovieCollection(responseJson);
-        })
+        fetch(app.apiBaseUrl + 'movies?q=' + query, config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    const error = {
+                        'code': 404
+                    }
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
+                movie.createMovieCollection(responseJson);
+            })
 
+            .catch(function (error) {
+                movie.content.innerHTML = '<p class="text-center">Cette recherche n\'a donné aucun résultat. </p>';
+                movie.loadingSpinner.classList.add("d-none");
+            })
     },
 
     createMovieCollection: function (responseJson) {
@@ -58,9 +73,23 @@ const movie = {
             cache: 'no-cache',
         };
 
-        fetch(app.apiBaseUrl + 'movies/' + apiCode, config).then(function (response) { return response.json() }).then(function (responseJson) {
-            movie.createMovieItem(responseJson);
-        })
+        fetch(app.apiBaseUrl + 'movies/' + apiCode, config)
+            .then(function (response) {
+                if(response.status===200){
+                    return response.json()
+                }else{
+                    const error = {
+                        'code': 404
+                    };
+                    throw error;
+                }
+            })
+            .then(function (responseJson) {
+                movie.createMovieItem(responseJson);
+            })
+            .catch(function(error){
+                movie.content.innerHTML = '<p class="text-center">Une erreur s\'est produite.</p>'
+            })
     },
 
     createMovieItem: function (responseJson) {
