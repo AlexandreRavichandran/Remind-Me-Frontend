@@ -52,7 +52,7 @@ const bookList = {
                     return response.json();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/remind-me-frontend/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             })
             .then(function (jsonResponse) {
@@ -64,7 +64,7 @@ const bookList = {
                     newBookList.querySelector('#bookListOrder').innerHTML = book.listOrder;
                     newBookList.querySelector('#bookListTitle').innerHTML = book.book.title;
                     newBookList.querySelector('#bookListPicture').setAttribute('src', book.book.pictureUrl);
-                    newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/remind-me-frontend/books/details?code=' + book.book.apiCode)
+                    newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/Remind-Me-frontend/books/details?code=' + book.book.apiCode)
                     bookList.content.appendChild(newBookList)
                 }
                 bookList.loadingSpinner.classList.add('d-none');
@@ -110,7 +110,7 @@ const bookList = {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/remind-me-frontend/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             });
     },
@@ -249,7 +249,7 @@ const bookList = {
                     document.querySelector('#bookList').click();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/remind-me-frontend/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             })
     }

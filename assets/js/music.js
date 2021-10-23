@@ -69,8 +69,8 @@ const music = {
             providedAlbum.querySelector('#picture').setAttribute('src', album.pictureUrl);
             providedAlbum.querySelector('#title').innerHTML = album.title;
             providedAlbum.querySelector('#artist').innerHTML = album.artist;
-            providedAlbum.querySelector('#artist').setAttribute('href', '/remind-me-frontend/artists/details?code=' + album.artistApiCode);
-            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/remind-me-frontend/albums/details?code=' + album.apiCode)
+            providedAlbum.querySelector('#artist').setAttribute('href', '/Remind-Me-frontend/artists/details?code=' + album.artistApiCode);
+            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/Remind-Me-frontend/albums/details?code=' + album.apiCode)
 
             music.content.appendChild(providedAlbum);
         }
@@ -84,7 +84,7 @@ const music = {
             const providedArtist = artistTemplate.content.cloneNode(true);
             providedArtist.querySelector('#artistPicture').setAttribute('src', artist.pictureUrl);
             providedArtist.querySelector('#artistName').innerHTML = artist.name;
-            providedArtist.querySelector('#artistDetailsLink').setAttribute('href', '/remind-me-frontend/artists/details?code=' + artist.apiCode)
+            providedArtist.querySelector('#artistDetailsLink').setAttribute('href', '/Remind-Me-frontend/artists/details?code=' + artist.apiCode)
             music.content.appendChild(providedArtist);
         }
         music.loadingSpinner.classList.add('d-none');
@@ -102,10 +102,10 @@ const music = {
 
             providedSong.querySelector('#title').innerHTML = song.title;
             providedSong.querySelector('#artist').innerHTML = song.artist;
-            providedSong.querySelector('#artist').setAttribute('href', '/remind-me-frontend/remind-me-frontend/artist/details?code=' + song.artistApiCode);
+            providedSong.querySelector('#artist').setAttribute('href', '/Remind-Me-frontend/artist/details?code=' + song.artistApiCode);
             providedSong.querySelector('#picture').setAttribute('src', song.pictureUrl);
             providedSong.querySelector('#preview').setAttribute('src', song.previewUrl);
-            providedSong.querySelector('#detailsLink').setAttribute('href', '/remind-me-frontend/remind-me-frontend/songs/details?code=' + song.apiCode)
+            providedSong.querySelector('#detailsLink').setAttribute('href', '/Remind-Me-frontend/songs/details?code=' + song.apiCode)
             music.content.appendChild(providedSong);
         }
         music.loadingSpinner.classList.add('d-none');
@@ -167,7 +167,7 @@ const music = {
         for (const track of element.tracklist) {
             const trackElement = document.createElement('li');
             const trackLink = document.createElement('a');
-            trackLink.setAttribute('href', '/remind-me-frontend/songs/details?code=' + track.apiCode);
+            trackLink.setAttribute('href', '/Remind-Me-frontend/songs/details?code=' + track.apiCode);
             trackLink.innerHTML = track.title;
             trackLink.classList.add('text-white');
             trackElement.appendChild(trackLink);
@@ -198,7 +198,7 @@ const music = {
         songElement.querySelector('#releasedAt').innerHTML = element.releasedAt;
         songElement.querySelector('#apiCode').innerHTML = element.apiCode;
         songElement.querySelector('#preview').setAttribute('src', element.previewUrl);
-        songElement.querySelector('#albumDetails').setAttribute('href', '/remind-me-frontend/albums/details?code=' + element.albumApiCode)
+        songElement.querySelector('#albumDetails').setAttribute('href', '/Remind-Me-frontend/albums/details?code=' + element.albumApiCode)
 
         music.content.appendChild(songElement);
         music.loadingSpinner.classList.add('d-none');

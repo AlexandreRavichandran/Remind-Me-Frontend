@@ -63,7 +63,7 @@ const musicList = {
                     newMusicList.querySelector('#musicListTitle').innerHTML = music.music.title;
                     newMusicList.querySelector('#musicListOrder').innerHTML = music.listOrder;
                     newMusicList.querySelector('#musicListReleasedAt').innerHTML = music.music.releasedAt;
-                    newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/remind-me-frontend/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
+                    newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/Remind-Me-frontend/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
                     newMusicList.querySelector('#musicListPicture').setAttribute('src', music.music.pictureUrl);
                     let type = null;
                     switch (music.music.type) {
@@ -132,7 +132,7 @@ const musicList = {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/remind-me-frontend/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             });
     },
@@ -265,7 +265,7 @@ const musicList = {
                     document.querySelector('#musicList').click();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/remind-me-frontend/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             })
     }

@@ -64,7 +64,7 @@ const book = {
             providedBook.querySelector('#releasedAt').innerHTML = bookElement.releasedAt;
             providedBook.querySelector('#author').innerHTML = bookElement.author;
             providedBook.querySelector('#picture').setAttribute('src', bookElement.coverUrl)
-            providedBook.querySelector('#detailsLink').setAttribute('href', '/remind-me-frontend/books/details?code=' + bookElement.apiCode)
+            providedBook.querySelector('#detailsLink').setAttribute('href', '/Remind-Me-frontend/books/details?code=' + bookElement.apiCode)
             book.content.appendChild(providedBook);
         }
         bookList.addListeners();
