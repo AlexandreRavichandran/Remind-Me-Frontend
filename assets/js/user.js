@@ -16,7 +16,7 @@ const user = {
     logout: function (event) {
         event.preventDefault();
         sessionStorage.removeItem('JWT');
-        window.location.replace('/');
+        window.location.replace('/remind-me-frontend/');
     },
 
     login: function (event) {
@@ -40,7 +40,6 @@ const user = {
 
         fetch(app.apiBaseUrl + 'login_check', config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     return response.json();
                 } else {
@@ -48,7 +47,7 @@ const user = {
                 }
             }).then(function (responseJson) {
                 sessionStorage.setItem('JWT', responseJson.token);
-                window.location.replace("/list");
+                window.location.replace("/remind-me-frontend/list");
             })
     }
 }

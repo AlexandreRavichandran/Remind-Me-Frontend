@@ -101,7 +101,7 @@ const app = {
             request.value = '';
             musicType.value = '';
         } else {
-            let destinationLink = '/search.html?type=' + type.value + '&q=' + request.value;
+            let destinationLink = '/remind-me-frontend/search.html?type=' + type.value + '&q=' + request.value;
             if (type.value === 'music') {
                 destinationLink += '&subType=' + musicType.value;
             }

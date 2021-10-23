@@ -50,11 +50,10 @@ const movieList = {
                     return response.json();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             })
             .then(function (jsonResponse) {
-                console.log(jsonResponse);
                 for (const movie of jsonResponse['hydra:member']) {
                     const movieListTemplate = document.querySelector('#movieListTemplate');
                     const newMovieList = movieListTemplate.content.cloneNode(true);
@@ -63,7 +62,7 @@ const movieList = {
                     newMovieList.querySelector('#movieReleasedAt').innerHTML = movie.movie.releasedAt;
                     newMovieList.querySelector('#movieListOrder').innerHTML = movie.listOrder;
                     newMovieList.querySelector('#moviePicture').setAttribute('src', movie.movie.pictureUrl);
-                    newMovieList.querySelector('#movieDetailsLink').setAttribute('href', '/movies/details?code=' + movie.movie.apiCode);
+                    newMovieList.querySelector('#movieDetailsLink').setAttribute('href', '/remind-me-frontend/movies/details?code=' + movie.movie.apiCode);
                     movieList.content.appendChild(newMovieList);
                 }
 
@@ -108,7 +107,7 @@ const movieList = {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             });
     },
@@ -165,7 +164,6 @@ const movieList = {
             'listOrder': previousElementOrder
         }
 
-        console.log(JSON.stringify(datas));
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/merge-patch+json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
@@ -182,7 +180,6 @@ const movieList = {
 
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('ok1')
                     return response.json();
                 } else {
                     throw error;
@@ -207,7 +204,6 @@ const movieList = {
 
                             const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
                             const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
-                            console.log(order);
                             movieList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })

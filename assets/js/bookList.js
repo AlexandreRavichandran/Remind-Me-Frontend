@@ -52,7 +52,7 @@ const bookList = {
                     return response.json();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             })
             .then(function (jsonResponse) {
@@ -64,7 +64,7 @@ const bookList = {
                     newBookList.querySelector('#bookListOrder').innerHTML = book.listOrder;
                     newBookList.querySelector('#bookListTitle').innerHTML = book.book.title;
                     newBookList.querySelector('#bookListPicture').setAttribute('src', book.book.pictureUrl);
-                    newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/books/details?code=' + book.book.apiCode)
+                    newBookList.querySelector('#bookListDetailsLink').setAttribute('href', '/remind-me-frontend/books/details?code=' + book.book.apiCode)
                     bookList.content.appendChild(newBookList)
                 }
                 bookList.loadingSpinner.classList.add('d-none');
@@ -110,7 +110,7 @@ const bookList = {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             });
     },
@@ -119,7 +119,6 @@ const bookList = {
         event.preventDefault();
         const bookToUpdate = event.currentTarget.closest('.element');
         if (event.currentTarget.classList.contains('upToBookList')) {
-            console.log('ok');
             bookList.upToList(bookToUpdate);
         } else if (event.currentTarget.classList.contains('downToBookList')) {
             bookList.downToList(bookToUpdate);
@@ -151,7 +150,6 @@ const bookList = {
             'listOrder': previousElementOrder
         }
 
-        console.log(JSON.stringify(datas));
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/merge-patch+json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
@@ -168,7 +166,6 @@ const bookList = {
 
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('ok1')
                     return response.json();
                 } else {
                     throw error;
@@ -193,7 +190,6 @@ const bookList = {
 
                             const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
                             const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
-                            console.log(order);
                             bookList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })
@@ -253,7 +249,7 @@ const bookList = {
                     document.querySelector('#bookList').click();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             })
     }

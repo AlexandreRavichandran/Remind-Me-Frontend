@@ -63,7 +63,7 @@ const musicList = {
                     newMusicList.querySelector('#musicListTitle').innerHTML = music.music.title;
                     newMusicList.querySelector('#musicListOrder').innerHTML = music.listOrder;
                     newMusicList.querySelector('#musicListReleasedAt').innerHTML = music.music.releasedAt;
-                    newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
+                    newMusicList.querySelector('#musicListDetailsLink').setAttribute('href', '/remind-me-frontend/' + music.music.type.toLowerCase() + 's/details?code=' + music.music.apiCode);
                     newMusicList.querySelector('#musicListPicture').setAttribute('src', music.music.pictureUrl);
                     let type = null;
                     switch (music.music.type) {
@@ -81,9 +81,11 @@ const musicList = {
                     newMusicList.querySelector('#musicListType').innerHTML = type;
 
                     musicList.content.appendChild(newMusicList);
-                    musicList.loadingSpinner.classList.add('d-none');
-                    musicList.addListeners();
+
+
                 }
+                musicList.addListeners();
+                musicList.loadingSpinner.classList.add('d-none');
             })
     },
 
@@ -130,7 +132,7 @@ const musicList = {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             });
     },
@@ -186,7 +188,6 @@ const musicList = {
             'listOrder': previousElementOrder
         }
 
-        console.log(JSON.stringify(datas));
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/merge-patch+json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
@@ -198,12 +199,10 @@ const musicList = {
             body: JSON.stringify(datas),
             cache: 'no-cache'
         };
-        console.log(app.apiBaseUrl + 'list/musics/' + previousElementId);
         fetch(app.apiBaseUrl + 'list/musics/' + previousElementId, config)
 
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('ok1')
                     return response.json();
                 } else {
                     throw error;
@@ -227,7 +226,6 @@ const musicList = {
                         if (response.status === 200) {
                             const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
                             const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
-                            console.log(order);
                             musicList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })
@@ -267,7 +265,7 @@ const musicList = {
                     document.querySelector('#musicList').click();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/remind-me-frontend/login');
                 }
             })
     }

@@ -7,7 +7,7 @@ const utils = {
 
     checkIfUserIsConnected: function () {
         if (!sessionStorage.getItem('JWT')) {
-            window.location.replace('/login');
+            window.location.replace('/remind-me-frontend/login');
         }
     },
 

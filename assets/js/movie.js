@@ -59,7 +59,7 @@ const movie = {
             providedMovie.querySelector('#title').innerHTML = movie.title;
             providedMovie.querySelector('#picture').setAttribute('src', movie.coverUrl);
             providedMovie.querySelector('#releasedAt').innerHTML = movie.releasedAt;
-            providedMovie.querySelector('#detailsLink').setAttribute('href', '/movies/details?code=' + movie.apiCode)
+            providedMovie.querySelector('#detailsLink').setAttribute('href', '/remind-me-frontend/movies/details?code=' + movie.apiCode)
             content.appendChild(providedMovie);
         }
         movieList.addListeners();
