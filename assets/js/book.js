@@ -31,7 +31,7 @@ const book = {
             .then(function (response) {
                 if (response.status === 200) {
                     return response.json();
-                }else{
+                } else {
                     const error = {
                         'code': 404
                     };
@@ -82,18 +82,20 @@ const book = {
             .then(function (response) {
                 if (response.status === 200) {
                     return response.json();
-                }else{
+                } else {
                     const error = {
                         'code': 404
                     };
                     throw error;
                 }
             })
-            .then(function (responseJson) {
-                book.createBookItem(responseJson);
-            })
-            .catch(function(error){
+            .catch(function (error) {
+                console.log('rentré');
                 book.content.innerHTML = '<p class="text-center">Une erreur s\'est produite.</p>'
+            })
+            .then(function (responseJson) {
+                console.log('rentré');
+                book.createBookItem(responseJson);
             })
     },
 
@@ -116,7 +118,7 @@ const book = {
 
         book.content.appendChild(newBookItem);
         book.loadingSpinner.classList.add('d-none');
-        booklist.addListeners();
+        bookList.addListeners();
     },
 
 }

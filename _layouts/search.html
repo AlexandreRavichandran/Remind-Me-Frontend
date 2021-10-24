@@ -20,7 +20,7 @@
 </main>
 
 <template id="albumTemplate">
-    <div class="element col-3 albumElement mt-4 me-1 py-2 text-center" data-api-code="" data-type="Album">
+    <div class="element col-12 col-lg-6 col-xl-3 albumElement mt-4 me-1 py-2 text-center" data-api-code="" data-type="Album">
         <div>
             <img class="ms-auto me-auto" width="250px" id="picture" data-picture-url="" src="#" alt="">
         </div>
@@ -37,7 +37,7 @@
 </template>
 
 <template id="movieTemplate">
-    <div class="col-4 element movieElement p-2 mb-3" data-api-code="">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 element movieElement p-2 mb-3" data-api-code="">
         <div>
             <img class="d-block ms-auto me-auto" data-picture-url="" id="picture" width="250px" src="#" alt="">
         </div>
@@ -57,21 +57,21 @@
 </template>
 
 <template id="songTemplate">
-    <div class="d-flex col-12 element songElement mt-2 me-1 py-2" data-api-code="" data-type="Song">
-        <div class="col-1">
-            <img id="picture" data-picture-url="" width="120px" src="#" alt="">
+    <div class="d-flex col-12 element songElement mt-2 me-1 py-2 row" data-api-code="" data-type="Song">
+        <div class="col-12 col-lg-1">
+            <img id="picture" data-picture-url="" width="100%" src="#" alt="">
         </div>
-        <div class="col-4 align-middle d-flex flex-column justify-content-center align-items-center">
-            <p class="d-block text-white" data-title="" id="title"></p>
+        <div class="col-12 col-lg-4 align-middle d-flex flex-column justify-content-center align-items-center">
+            <p class="mt-2 mt-lg-0 d-block text-white" data-title="" id="title"></p>
             <p class="mt-2 d-block text-white" data-artist="" id="artist"></p>
         </div>
-        <div class="col-4 d-flex justify-content-center align-items-center">
+        <div class="d-none d-md-block col-12 col-lg-4 d-flex justify-content-center align-items-center">
             <audio controls>
                 <source id="preview" src="#" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
         </div>
-        <div class="col-3 d-flex justify-content-center align-items-center">
+        <div class="col-12 col-lg-3 d-flex justify-content-center align-items-center">
             <a id="detailsLink" href="#"
                 class="d-flex me-3 justify-content-center text-white btn btn-primary rounded mr-2 h-auto"><i
                     class="m-0 text-white h5 bi bi-search"></i></a>
@@ -98,7 +98,7 @@
 </template>
 
 <template id="bookTemplate">
-    <div class="col-4 element bookElement p-2 mb-3" data-api-code="">
+    <div class="col-12 col-lg-4 element bookElement p-2 mb-3" data-api-code="">
         <div>
             <img class="d-block ms-auto me-auto" data-picture-url="" id="picture" width="250px" src="#" alt="">
         </div>
