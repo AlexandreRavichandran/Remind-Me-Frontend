@@ -75,19 +75,13 @@ const movieList = {
     addMovieList: function (event) {
         event.preventDefault();
         const movieToAdd = event.currentTarget.closest('.element');
-        const title = movieToAdd.querySelector('#title').dataset.title;
-        const releasedAt = movieToAdd.querySelector('#releasedAt').dataset.releasedAt;
         const apiCode = movieToAdd.dataset.apiCode;
-        const pictureUrl = movieToAdd.querySelector('#picture').dataset.pictureUrl;
 
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
         const movie = {
-            'title': title,
-            'releasedAt': releasedAt,
-            'apiCode': apiCode,
-            'pictureUrl': pictureUrl
+            'apiCode': apiCode
         }
         const datas = {
             'movie': movie
@@ -214,8 +208,8 @@ const movieList = {
             })
 
     },
-    
-    displayNewOrder: function(order, currentElement, nextElement){
+
+    displayNewOrder: function (order, currentElement, nextElement) {
 
         movieList.content.removeChild(currentElement);
         if (order === 'bottom') {

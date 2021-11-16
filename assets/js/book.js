@@ -57,13 +57,22 @@ const book = {
             providedBook.querySelector('.element').dataset.apiCode = bookElement.apiCode;
             providedBook.querySelector('#title').dataset.title = bookElement.title;
             providedBook.querySelector('#author').dataset.author = bookElement.author;
-            providedBook.querySelector('#picture').dataset.pictureUrl = bookElement.coverUrl;
+            if (bookElement.coverUrl !== null) {
+                providedBook.querySelector('#picture').dataset.pictureUrl = bookElement.coverUrl;
+            } else {
+                providedBook.querySelector('#picture').dataset.pictureUrl = 'assets/img/book_not_found.png';
+            }
             providedBook.querySelector('#releasedAt').dataset.releasedAt = bookElement.releasedAt;
 
             providedBook.querySelector('#title').innerHTML = bookElement.title;
             providedBook.querySelector('#releasedAt').innerHTML = bookElement.releasedAt;
             providedBook.querySelector('#author').innerHTML = bookElement.author;
-            providedBook.querySelector('#picture').setAttribute('src', bookElement.coverUrl)
+            if (bookElement.coverUrl !== null) {
+                providedBook.querySelector('#picture').setAttribute('src', bookElement.coverUrl)
+            } else {
+                providedBook.querySelector('#picture').setAttribute('src', 'assets/img/book_not_found.png')
+            }
+
             providedBook.querySelector('#detailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
             book.content.appendChild(providedBook);
         }
@@ -105,10 +114,18 @@ const book = {
         newBookItem.querySelector('.element').dataset.apiCode = responseJson.apiCode;
         newBookItem.querySelector('#title').dataset.title = responseJson.title;
         newBookItem.querySelector('#author').dataset.author = responseJson.author;
-        newBookItem.querySelector('#picture').dataset.pictureUrl = responseJson.coverUrl;
+        if (responseJson.coverUrl !== null) {
+            newBookItem.querySelector('#picture').dataset.pictureUrl = responseJson.coverUrl;
+        } else {
+            newBookItem.querySelector('#picture').dataset.pictureUrl = 'assets/img/book_not_found.png';
+        }
         newBookItem.querySelector('#releasedAt').dataset.releasedAt = responseJson.releasedAt;
 
-        newBookItem.querySelector('#picture').setAttribute('src', responseJson.coverUrl);
+        if (responseJson.coverUrl !== null) {
+            newBookItem.querySelector('#picture').setAttribute('src', responseJson.coverUrl)
+        } else {
+            newBookItem.querySelector('#picture').setAttribute('src', 'assets/img/book_not_found.png')
+        }
         newBookItem.querySelector('#title').innerHTML = responseJson.title;
         newBookItem.querySelector('#author').innerHTML = responseJson.author;
         newBookItem.querySelector('#releasedAt').innerHTML = responseJson.releasedAt;

@@ -93,23 +93,16 @@ const musicList = {
         const elementToAdd = event.currentTarget.closest('.element');
         const elementType = elementToAdd.dataset.type;
         const elementApiCode = elementToAdd.dataset.apiCode;
-        const elementTitle = elementToAdd.querySelector('#title').dataset.title;
-        const elementPicture = elementToAdd.querySelector('#picture').dataset.pictureUrl;
         let elementArtist = null;
         if (elementType !== 'Artist') {
             elementArtist = elementToAdd.querySelector('#artist').dataset.artist;
         }
-
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
         const music = {
-            'title': elementTitle,
-            'releasedAt': 2002,
             'type': elementType,
-            'artist': elementArtist,
-            'apiCode': elementApiCode,
-            'pictureUrl': elementPicture
+            'apiCode': elementApiCode
         }
         const datas = {
             'music': music
