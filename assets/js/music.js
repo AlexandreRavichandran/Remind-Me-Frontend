@@ -69,7 +69,6 @@ const music = {
             providedAlbum.querySelector('#picture').setAttribute('src', album.pictureUrl);
             providedAlbum.querySelector('#title').innerHTML = album.title;
             providedAlbum.querySelector('#artist').innerHTML = album.artist;
-            providedAlbum.querySelector('#artist').setAttribute('href', '/artists/details?code=' + album.artistApiCode);
             providedAlbum.querySelector('#detailsLink').setAttribute('href', '/albums/details?code=' + album.apiCode)
 
             music.content.appendChild(providedAlbum);

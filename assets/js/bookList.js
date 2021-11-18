@@ -39,7 +39,7 @@ const bookList = {
         event.preventDefault();
         httpHeaders = new Headers();
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
-        httpHeaders.append('Content-Type', 'application/json');
+        httpHeaders.append('content-type', 'application/json');
         const config = {
             method: 'GET',
             headers: httpHeaders,
