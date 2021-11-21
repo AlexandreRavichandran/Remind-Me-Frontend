@@ -54,7 +54,6 @@ const movieList = {
                 }
             })
             .then(function (jsonResponse) {
-                console.log(jsonResponse);
                 for (const movie of jsonResponse['hydra:member']) {
                     const movieListTemplate = document.querySelector('#movieListTemplate');
                     const newMovieList = movieListTemplate.content.cloneNode(true);
@@ -159,7 +158,6 @@ const movieList = {
             'listOrder': previousElementOrder
         }
 
-        console.log(JSON.stringify(datas));
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/merge-patch+json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
@@ -176,7 +174,6 @@ const movieList = {
 
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('ok1')
                     return response.json();
                 } else {
                     throw error;
@@ -201,7 +198,6 @@ const movieList = {
 
                             const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
                             const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
-                            console.log(order);
                             movieList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })

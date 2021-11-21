@@ -111,7 +111,6 @@ const bookList = {
         event.preventDefault();
         const bookToUpdate = event.currentTarget.closest('.element');
         if (event.currentTarget.classList.contains('upToBookList')) {
-            console.log('ok');
             bookList.upToList(bookToUpdate);
         } else if (event.currentTarget.classList.contains('downToBookList')) {
             bookList.downToList(bookToUpdate);
@@ -143,7 +142,6 @@ const bookList = {
             'listOrder': previousElementOrder
         }
 
-        console.log(JSON.stringify(datas));
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/merge-patch+json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
@@ -160,7 +158,6 @@ const bookList = {
 
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('ok1')
                     return response.json();
                 } else {
                     throw error;
@@ -185,7 +182,6 @@ const bookList = {
 
                             const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
                             const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
-                            console.log(order);
                             bookList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })

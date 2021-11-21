@@ -47,7 +47,6 @@ const user = {
 
         fetch(app.apiBaseUrl + 'login_check', config)
             .then(function (response) {
-                console.log(response);
                 if (response.status === 200) {
                     return response.json();
                 } else {
@@ -88,9 +87,7 @@ const user = {
 
             fetch(app.apiBaseUrl + 'users', config)
                 .then(function (response) {
-                    console.log(response.status);
                     if (response.status === 201) {
-                        console.log('okok');
                         return response.json();
 
                     } else if (response.status === 422) {
@@ -102,12 +99,10 @@ const user = {
 
                 })
                 .then(function (responseJson) {
-                    console.log(responseJson);
                     sessionStorage.setItem('JWT', responseJson.token);
                     window.location.replace('/');
                 })
                 .catch(function (error) {
-                    console.log('ok');
                     utils.displayMessage('warning', 'Une erreur s\'est produite');
                 })
         }

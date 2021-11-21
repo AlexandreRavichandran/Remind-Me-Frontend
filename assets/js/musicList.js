@@ -81,9 +81,9 @@ const musicList = {
                     newMusicList.querySelector('#musicListType').innerHTML = type;
 
                     musicList.content.appendChild(newMusicList);
-                    musicList.loadingSpinner.classList.add('d-none');
                     musicList.addListeners();
                 }
+                musicList.loadingSpinner.classList.add('d-none');
             })
     },
 
@@ -179,7 +179,6 @@ const musicList = {
             'listOrder': previousElementOrder
         }
 
-        console.log(JSON.stringify(datas));
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/merge-patch+json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
@@ -191,12 +190,10 @@ const musicList = {
             body: JSON.stringify(datas),
             cache: 'no-cache'
         };
-        console.log(app.apiBaseUrl + 'list/musics/' + previousElementId);
         fetch(app.apiBaseUrl + 'list/musics/' + previousElementId, config)
 
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('ok1')
                     return response.json();
                 } else {
                     throw error;
@@ -220,7 +217,6 @@ const musicList = {
                         if (response.status === 200) {
                             const currentElement = document.querySelector('[data-id="' + currentElementId + '"');
                             const nextElement = document.querySelector('[data-id="' + previousElementId + '"');
-                            console.log(order);
                             musicList.displayNewOrder(order, currentElement, nextElement);
                         }
                     })

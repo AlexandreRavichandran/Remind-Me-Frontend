@@ -99,11 +99,9 @@ const book = {
                 }
             })
             .catch(function (error) {
-                console.log('rentré');
                 book.content.innerHTML = '<p class="text-center">Une erreur s\'est produite.</p>'
             })
             .then(function (responseJson) {
-                console.log('rentré');
                 book.createBookItem(responseJson);
             })
     },
