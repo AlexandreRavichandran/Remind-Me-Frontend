@@ -119,14 +119,27 @@ const musicList = {
             .then(function (response) {
                 if (response.status === 201) {
                     utils.displayMessage('success', 'Cette musique a bien été ajouté à votre liste');
-                } else if (response.status === 400) {
+                } else {
+                    let error = {
+                        "code": response.status
+                    }
+                    throw error;
+                }
+            })
+            .catch(function (error) {
+
+                if (error.code === 400) {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
-                } else if (response.status === 401) {
+                } else if (error.code === 401) {
                     sessionStorage.removeItem('JWT');
                     window.location.replace('/login');
+
                 }
-            });
-    },
+            })
+
+
+
+    },  
 
     changeMusicOrder: function (event) {
         event.preventDefault();
@@ -195,8 +208,6 @@ const musicList = {
             .then(function (response) {
                 if (response.status === 200) {
                     return response.json();
-                } else {
-                    throw error;
                 }
             })
             .then(function (responseJson) {
