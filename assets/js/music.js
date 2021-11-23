@@ -69,7 +69,7 @@ const music = {
             providedAlbum.querySelector('#picture').setAttribute('src', album.pictureUrl);
             providedAlbum.querySelector('#title').innerHTML = album.title;
             providedAlbum.querySelector('#artist').innerHTML = album.artist;
-            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/albums/details?code=' + album.apiCode)
+            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/Remind-Me-frontend/albums/details?code=' + album.apiCode)
 
             music.content.appendChild(providedAlbum);
         }
@@ -83,7 +83,6 @@ const music = {
             const providedArtist = artistTemplate.content.cloneNode(true);
             providedArtist.querySelector('#artistPicture').setAttribute('src', artist.pictureUrl);
             providedArtist.querySelector('#artistName').innerHTML = artist.name;
-            providedArtist.querySelector('#artistDetailsLink').setAttribute('href', '/Remind-Me-frontend/artists/details?code=' + artist.apiCode)
             music.content.appendChild(providedArtist);
         }
         music.loadingSpinner.classList.add('d-none');

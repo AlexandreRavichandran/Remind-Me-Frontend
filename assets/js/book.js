@@ -73,7 +73,7 @@ const book = {
                 providedBook.querySelector('#picture').setAttribute('src', '/Remind-Me-frontend/assets/img/book_not_found.png')
             }
 
-            providedBook.querySelector('#detailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
+            providedBook.querySelector('#detailsLink').setAttribute('href', '/Remind-Me-frontend/books/details?code=' + bookElement.apiCode)
             book.content.appendChild(providedBook);
         }
         bookList.addListeners();
