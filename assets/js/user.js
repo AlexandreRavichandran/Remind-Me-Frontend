@@ -100,7 +100,7 @@ const user = {
                 })
                 .then(function (responseJson) {
                     sessionStorage.setItem('JWT', responseJson.token);
-                    window.location.replace('/');
+                    window.location.replace('/Remind-Me-frontend/');
                 })
                 .catch(function (error) {
                     utils.displayMessage('warning', 'Une erreur s\'est produite');
@@ -111,7 +111,7 @@ const user = {
     redirectIfLogged: function () {
         if (app.currentPage.includes('/login') || app.currentPage.includes('/register')) {
             if (sessionStorage.getItem('JWT') !== null) {
-                window.location.replace('/');
+                window.location.replace('/Remind-Me-frontend/login');
             }
         }
     }

@@ -1,5 +1,5 @@
 const app = {
-    apiBaseUrl: 'https://127.0.0.1:8000/api/',
+    apiBaseUrl: 'https://remind-me-api.herokuapp.com/api/',
     currentPage: window.location.href,
 
     init: function () {

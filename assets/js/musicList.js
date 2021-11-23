@@ -52,7 +52,7 @@ const musicList = {
                     return response.json();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             })
             .then(function (jsonResponse) {

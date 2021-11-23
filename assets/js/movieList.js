@@ -239,7 +239,7 @@ const movieList = {
                     document.querySelector('#movieList').click();
                 } else if (response.status === 401) {
                     sessionStorage.removeItem('JWT');
-                    window.location.replace('/login');
+                    window.location.replace('/Remind-Me-frontend/login');
                 }
             })
     }
