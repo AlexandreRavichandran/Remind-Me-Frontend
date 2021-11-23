@@ -60,7 +60,7 @@ const book = {
             if (bookElement.coverUrl !== null) {
                 providedBook.querySelector('#picture').dataset.pictureUrl = bookElement.coverUrl;
             } else {
-                providedBook.querySelector('#picture').dataset.pictureUrl = 'assets/img/book_not_found.png';
+                providedBook.querySelector('#picture').dataset.pictureUrl = '/Remind-Me-frontend/assets/img/book_not_found.png';
             }
             providedBook.querySelector('#releasedAt').dataset.releasedAt = bookElement.releasedAt;
 
@@ -70,7 +70,7 @@ const book = {
             if (bookElement.coverUrl !== null) {
                 providedBook.querySelector('#picture').setAttribute('src', bookElement.coverUrl)
             } else {
-                providedBook.querySelector('#picture').setAttribute('src', 'assets/img/book_not_found.png')
+                providedBook.querySelector('#picture').setAttribute('src', '/Remind-Me-frontend/assets/img/book_not_found.png')
             }
 
             providedBook.querySelector('#detailsLink').setAttribute('href', '/books/details?code=' + bookElement.apiCode)
@@ -115,14 +115,14 @@ const book = {
         if (responseJson.coverUrl !== null) {
             newBookItem.querySelector('#picture').dataset.pictureUrl = responseJson.coverUrl;
         } else {
-            newBookItem.querySelector('#picture').dataset.pictureUrl = 'assets/img/book_not_found.png';
+            newBookItem.querySelector('#picture').dataset.pictureUrl = '/Remind-Me-frontend/assets/img/book_not_found.png';
         }
         newBookItem.querySelector('#releasedAt').dataset.releasedAt = responseJson.releasedAt;
 
         if (responseJson.coverUrl !== null) {
             newBookItem.querySelector('#picture').setAttribute('src', responseJson.coverUrl)
         } else {
-            newBookItem.querySelector('#picture').setAttribute('src', 'assets/img/book_not_found.png')
+            newBookItem.querySelector('#picture').setAttribute('src', '/Remind-Me-frontend/assets/img/book_not_found.png')
         }
         newBookItem.querySelector('#title').innerHTML = responseJson.title;
         newBookItem.querySelector('#author').innerHTML = responseJson.author;
