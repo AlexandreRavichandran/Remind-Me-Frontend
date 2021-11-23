@@ -81,10 +81,8 @@ const musicList = {
                     newMusicList.querySelector('#musicListType').innerHTML = type;
 
                     musicList.content.appendChild(newMusicList);
-
-
+                    musicList.addListeners();
                 }
-                musicList.addListeners();
                 musicList.loadingSpinner.classList.add('d-none');
             })
     },
@@ -95,23 +93,16 @@ const musicList = {
         const elementToAdd = event.currentTarget.closest('.element');
         const elementType = elementToAdd.dataset.type;
         const elementApiCode = elementToAdd.dataset.apiCode;
-        const elementTitle = elementToAdd.querySelector('#title').dataset.title;
-        const elementPicture = elementToAdd.querySelector('#picture').dataset.pictureUrl;
         let elementArtist = null;
         if (elementType !== 'Artist') {
             elementArtist = elementToAdd.querySelector('#artist').dataset.artist;
         }
-
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
         const music = {
-            'title': elementTitle,
-            'releasedAt': 2002,
             'type': elementType,
-            'artist': elementArtist,
-            'apiCode': elementApiCode,
-            'pictureUrl': elementPicture
+            'apiCode': elementApiCode
         }
         const datas = {
             'music': music
@@ -128,14 +119,26 @@ const musicList = {
             .then(function (response) {
                 if (response.status === 201) {
                     utils.displayMessage('success', 'Cette musique a bien été ajouté à votre liste');
-                } else if (response.status === 400) {
+                } else {
+                    let error = {
+                        "code": response.status
+                    }
+                    throw error;
+                }
+            })
+            .catch(function (error) {
+
+                if (error.code === 400) {
                     utils.displayMessage('danger', 'Une erreur s\'est produite. Cet element est peut etre déja dans votre liste.');
-                } else if (response.status === 401) {
+                } else if (error.code === 401) {
                     sessionStorage.removeItem('JWT');
                     window.location.replace('/Remind-Me-frontend/login');
                 }
-            });
-    },
+            })
+
+
+
+    },  
 
     changeMusicOrder: function (event) {
         event.preventDefault();
@@ -204,8 +207,6 @@ const musicList = {
             .then(function (response) {
                 if (response.status === 200) {
                     return response.json();
-                } else {
-                    throw error;
                 }
             })
             .then(function (responseJson) {

@@ -1,22 +1,30 @@
 {% include header.html %}
 
-<main class="mb-5">
-    <div class="mt-5 container d-flex flex-column align-items-center">
-        <h2>Lorem ipsum dolor sit amet.</h2>
-        <h4>Remind me vous permettra de créer une liste de médias afin de ne pas oublier de les consommer ! </h4>
+<main class="mb-5 mt-4">
+    <div class="mt-2 container d-flex flex-column align-items-center">
+        <h2 class="text-center">Vous avez des problèmes de mémoire ?</h2>
+        <h4 class="text-center">Remind me vous permettra de vous constituer une liste de médias afin de ne pas oublier de les consommer !
+        </h4>
     </div>
-    <div class="homepageResearch d-flex flex-column justify-content-center">
-        <form id="reseachForm" action="search.html" method="get">
+    <div class="mt-5 row d-flex justify-content-center">
+        <div id="logoSpace" class="d-flex justify-content-center col-12 col-lg-1">
+            <img class="active" id="logo_movie" style="width:200px" src="/assets/img/movie_logo.png">
+            <img id="logo_music" class="d-none" style="width:300px" src="/assets/img/music_logo.png">
+            <img id="logo_book" class="d-none" style="width:300px" src="/assets/img/book_logo.png">
+        </div>
+    </div>
+    <div class="homepageResearch mt-5 d-flex flex-column justify-content-center">
+        <form id="researchForm" action="search.html" method="get">
             <div class="container d-flex flex-column align-items-center">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-12 col-md-3 text-center mb-4 mb-md-0">
+                    <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
                         <label for="themeSelection" class="form-label h4 mt-2">Je cherche</label>
                     </div>
-                    <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-8">
                         <select required name="type" id="themeSelection" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
                             <option selected value="movie">un film</option>
-                            <option value="music">un artiste musical/album/une musique</option>
+                            <option value="music">un album/une chanson</option>
                             <option value="book">un livre</option>
                         </select>
                     </div>
@@ -26,7 +34,6 @@
                         <select id="musicTypeSelection" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
                             <!-- Type Selection -->
-                            <option value="artist">un artiste</option>
                             <option selected value="album">un album</option>
                             <option value="song">une chanson</option>
                         </select>
@@ -34,8 +41,9 @@
                 </div>
             </div>
             <div class="container d-flex flex-column align-items-center mt-4">
-                <input required id="q" class="form-control form-control-lg searchBar" autocomplete="off" name="q" type="text" placeholder="Votre recherche">
-                <button class="btn btn-secondary btn-lg rounded p-2 mt-5"><i
+                <input required id="q" class="form-control form-control-lg searchBar" autocomplete="off" name="q"
+                    type="text" placeholder="Votre recherche">
+                <button class="btn text-white button btn-lg rounded p-2 mt-5"><i
                         class="me-2 text-white h5 bi bi-search"></i>Rechercher</button>
             </div>
         </form>

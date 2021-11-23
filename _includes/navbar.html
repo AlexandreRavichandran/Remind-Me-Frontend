@@ -1,8 +1,8 @@
 <header class="sticky-top">
     <!-- menu -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+    <nav class="navbar navbar-expand-lg py-4">
         <div class="container-fluid d-flex flex-column flex-md-row justify-content-md-between">
-            <a class="h1 navbar-brand" href="/Remind-Me-frontend/">REMIND ME</a>
+            <a class="h1 navbar-brand" href="/Remind-Me-frontend/"><img width="150px" src="/Remind-Me-frontend/assets/img/remindme.png" alt=""></a>
             <div class="d-flex flex-column flex-md-row">
                 <a id="loginLink" class="h5 nav-link text-white" href="/Remind-Me-frontend/login"><i
                         class="me-2 text-white h5 bi bi-person-circle"></i>Connexion</a>
@@ -16,6 +16,8 @@
     </nav>
 
 </header>
+<div id="messageSpace">
+</div>
 <template id="message">
     <div style="opacity:0" class="alert alert-dismissible fade show d-flex justify-content-center" role="alert">
         <span id="messageSentence" class="h6 d-flex align-self-center text-center me-3 mb-0"></span>

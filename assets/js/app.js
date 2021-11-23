@@ -18,39 +18,34 @@ const app = {
     addListeners: function () {
         const typeSelect = document.querySelector('#themeSelection');
         if (typeSelect) {
-            typeSelect.addEventListener('change', app.changeBackgroundColor);
+            typeSelect.addEventListener('change', app.changeLogo);
             typeSelect.addEventListener('change', app.showMusicType);
         }
-        const searchForm = document.querySelector('#reseachForm');
+        const searchForm = document.querySelector('#researchForm');
         if (searchForm) {
             searchForm.addEventListener('submit', app.checkRequest);
         }
     },
-
-    changeBackgroundColor: function (event) {
+    changeLogo: function (event) {
         const currentSelectValue = event.currentTarget.value;
+        const currentPicture = document.querySelector('#logoSpace .active');
 
-        const bodyElement = document.querySelector('body');
-        const previousColor = bodyElement.style.backgroundColor;
-        let newColor = "";
-
-        switch (currentSelectValue) {
-            case "movie":
-                newColor = "#4CC417"
-                break;
-            case "music":
-                newColor = "#1569C7"
-                break;
-            case "book":
-                newColor = "#C77416"
-                break;
-
-            default:
-                break;
+        currentPicture.animate({ opacity: [1, 0] }, 500).onfinish = function () {
+            currentPicture.classList.add('d-none');
+            currentPicture.classList.remove('active');
         }
-
-        bodyElement.animate({ backgroundColor: [previousColor, newColor] }, 500).onfinish = function () {
-            bodyElement.style.backgroundColor = newColor;
+        let nextPicture = null;
+        if (currentSelectValue === 'movie') {
+            nextPicture = 'logo_movie';
+        } else if (currentSelectValue === 'music') {
+            nextPicture = 'logo_music';
+        } else if (currentSelectValue === 'book') {
+            nextPicture = 'logo_book';
+        }
+        nextPicture = document.querySelector('#' + nextPicture);
+        nextPicture.animate({ opacity: [0, 1] }, 500).onfinish = function () {
+            nextPicture.classList.remove('d-none');
+            nextPicture.classList.add('active');
         }
     },
 
@@ -84,7 +79,7 @@ const app = {
     checkRequest: function (event) {
         event.preventDefault();
         const possibleTypeValues = ['movie', 'music', 'book'];
-        const possibleMusicTypeValues = ['artist', 'album', 'song'];
+        const possibleMusicTypeValues = ['album', 'song'];
         const form = event.currentTarget;
         let type = form.querySelector('#themeSelection');
         let request = form.querySelector('#q');

@@ -69,8 +69,7 @@ const music = {
             providedAlbum.querySelector('#picture').setAttribute('src', album.pictureUrl);
             providedAlbum.querySelector('#title').innerHTML = album.title;
             providedAlbum.querySelector('#artist').innerHTML = album.artist;
-            providedAlbum.querySelector('#artist').setAttribute('href', '/Remind-Me-frontend/artists/details?code=' + album.artistApiCode);
-            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/Remind-Me-frontend/albums/details?code=' + album.apiCode)
+            providedAlbum.querySelector('#detailsLink').setAttribute('href', '/albums/details?code=' + album.apiCode)
 
             music.content.appendChild(providedAlbum);
         }

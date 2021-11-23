@@ -6,10 +6,7 @@ body{
     background-color: black;
     color:white;
 }
-.homepageResearch, .loginForm
-{
-    height:566px;
-}
+
 
 .searchBar{
     box-shadow: 0px 2px 5px rgb(87, 87, 238);
@@ -19,4 +16,8 @@ footer{
 }
 .navbar{
     background-color: black;
+}
+
+.button{
+    background-color: rgb(255, 187, 0);
 }

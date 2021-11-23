@@ -39,7 +39,7 @@ const bookList = {
         event.preventDefault();
         httpHeaders = new Headers();
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
-        httpHeaders.append('Content-Type', 'application/json');
+        httpHeaders.append('content-type', 'application/json');
         const config = {
             method: 'GET',
             headers: httpHeaders,
@@ -75,21 +75,13 @@ const bookList = {
     addBookList: function (event) {
         event.preventDefault();
         const bookToAdd = event.currentTarget.closest('.element');
-        const title = bookToAdd.querySelector('#title').dataset.title;
-        const author = bookToAdd.querySelector('#author').dataset.author;
-        const releasedAt = bookToAdd.querySelector('#releasedAt').dataset.releasedAt;
         const apiCode = bookToAdd.dataset.apiCode;
-        const pictureUrl = bookToAdd.querySelector('#picture').dataset.pictureUrl;
 
         const httpHeaders = new Headers();
         httpHeaders.append('Content-type', 'application/json');
         httpHeaders.append('Authorization', 'Bearer ' + sessionStorage.getItem('JWT'));
         const book = {
-            'title': title,
-            'releasedAt': releasedAt,
-            'author': author,
-            'apiCode': apiCode,
-            'pictureUrl': pictureUrl
+            'apiCode': apiCode
         }
         const datas = {
             'book': book
