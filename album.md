@@ -1,5 +1,5 @@
 ---
 layout: album
 platform: mac
-permalink: /albums
+permalink: /albums/details
 ---
