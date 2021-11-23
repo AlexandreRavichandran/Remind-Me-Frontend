@@ -1,5 +1,5 @@
 ---
 layout: list
 platform: mac
-permalink: /list
+permalink: /Remind-Me-frontend/list
 ---

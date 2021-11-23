@@ -1,5 +1,5 @@
 ---
 layout: search
 platform: mac
-permalink: /search
+permalink: /Remind-Me-frontend/search
 ---

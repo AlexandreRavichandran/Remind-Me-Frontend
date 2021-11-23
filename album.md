@@ -1,5 +1,5 @@
 ---
 layout: album
 platform: mac
-permalink: /albums
+permalink: /Remind-Me-frontend/albums
 ---

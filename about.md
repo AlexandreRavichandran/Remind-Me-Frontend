@@ -1,5 +1,5 @@
 ---
 layout: about
 title: A propos
-permalink: /about
+permalink: /Remind-Me-frontend/about
 ---

@@ -1,5 +1,5 @@
 ---
 layout: movie
 platform: mac
-permalink: /movies
+permalink: /Remind-Me-frontend/movies
 ---

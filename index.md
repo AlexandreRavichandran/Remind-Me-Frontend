@@ -1,6 +1,6 @@
 ---
 layout: index
 platform: mac
-permalink: /
+permalink: /Remind-Me-frontend/
 ---
 

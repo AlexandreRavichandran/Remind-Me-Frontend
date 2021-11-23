@@ -1,5 +1,5 @@
 ---
 layout: book
 platform: mac
-permalink: /books
+permalink: /Remind-Me-frontend/books
 ---

@@ -1,5 +1,5 @@
 ---
 layout: login
 platform: mac
-permalink: /login
+permalink: /Remind-Me-frontend/login
 ---

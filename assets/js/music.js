@@ -74,7 +74,7 @@ const music = {
             music.content.appendChild(providedAlbum);
         }
         musicList.addListeners();
-        music.loadingSpinner.classList.add('d-none');
+        music.loadingSpinner.classList.add('d-none');   
     },
 
     createArtistCollection: function (element) {

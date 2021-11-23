@@ -1,5 +1,5 @@
 ---
 layout: register
 platform: mac
-permalink: /register
+permalink: /Remind-Me-frontend/register
 ---
