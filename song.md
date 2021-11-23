@@ -1,5 +1,5 @@
 ---
 layout: song
 platform: mac
-permalink: /songs
+permalink: /songs/details
 ---
